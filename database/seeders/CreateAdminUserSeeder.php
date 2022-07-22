@@ -4,6 +4,7 @@ namespace Database\Seeders;
   
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\TestCount;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
   
@@ -16,6 +17,11 @@ class CreateAdminUserSeeder extends Seeder
      */
     public function run()
     {
+        $test = TestCount::create([
+            'count' => 25,
+            'test_time' => 25
+        ]);
+
         $user = User::create([
             'name' => 'Administrator', 
             'phone' => '(97)-722-66-56',

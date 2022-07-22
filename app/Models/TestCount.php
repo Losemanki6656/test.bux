@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class TestCount extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'count',
+        'test_time'
+    ];
+  
 }

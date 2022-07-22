@@ -201,7 +201,9 @@ class HomeController extends Controller
 
     public function runtest(Request $request)
     {
-        $questions = Question::where('lang_id',$request->lang_id)->get();
+        $count = TestCount::find(1);
+        $questions = Question::where('lang_id',$request->lang_id)->inRandomOrder()->limit($count->count)->get();
+
         return view('test.runtest',[
             'questions' => $questions
         ]);

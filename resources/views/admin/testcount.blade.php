@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
     <div class="row">
-        <div class="col-xl-4">
+        <div class="col-xl-5">
 
             <div class="card">
                 <div class="card-body">
