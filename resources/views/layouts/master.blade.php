@@ -17,7 +17,7 @@
     <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('assets/fonts/font/bootstrap-icons.css')}}">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- loader-->
     <link href="{{asset('assets/css/pace.min.css')}}" rel="stylesheet" />
 
@@ -58,7 +58,7 @@
                             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
                                 data-bs-toggle="dropdown">
                                 <div class="user-setting d-flex align-items-center gap-1">
-                                    <img src="assets/images/avatars/avatar-1.png" class="user-img" alt="">
+                                    <img src="{{asset('assets/images/avatars/avatar-1.png')}}" class="user-img" alt="">
                                     <div class="user-name d-none d-sm-block">Jhon Deo</div>
                                 </div>
                             </a>
@@ -66,7 +66,7 @@
                                 <li>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="assets/images/avatars/avatar-1.png" alt=""
+                                            <img src="{{ asset('assets/images/avatars/avatar-1.png')}}" alt=""
                                                 class="rounded-circle" width="60" height="60">
                                             <div class="ms-3">
                                                 <h6 class="mb-0 dropdown-user-name">Jhon Deo</h6>
@@ -280,14 +280,17 @@
                 </div>
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboards">
-                        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-dashboards"
+                        <button class="nav-link {{strpos(url()->current(),'home')? 'active' : ''}}" data-bs-toggle="pill" data-bs-target="#pills-dashboards"
                             type="button"><i class="bi bi-house-door-fill"></i></button>
                     </li>
                     <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Application">
                         <button class="nav-link {{strpos(url()->current(),'Questions')? 'active' : ''}}" data-bs-toggle="pill" data-bs-target="#pills-application"
                             type="button"><i class="bi bi-grid-fill"></i></button>
                     </li>
-                    
+                    <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Application">
+                        <button class="nav-link {{strpos(url()->current(),'Administration')? 'active' : ''}}" data-bs-toggle="pill" data-bs-target="#pills-admin"
+                            type="button"><i class="lni lni-cog"></i></button>
+                    </li>
                 </ul>
             </div>
             <div class="textmenu">
@@ -295,7 +298,7 @@
                     <img src="{{asset('assets/images/brand-logo-2.png')}}" width="140" alt="" />
                 </div>
                 <div class="tab-content">
-                    <div class="tab-pane fade" id="pills-dashboards">
+                    <div class="tab-pane fade {{strpos(url()->current(),'home')? 'active show' : ''}}" id="pills-dashboards">
                         <div class="list-group list-group-flush">
                             <div class="list-group-item">
                                 <div class="d-flex w-100 justify-content-between">
@@ -303,39 +306,46 @@
                                 </div>
                                 <small class="mb-0">Some placeholder content</small>
                             </div>
-                            <a href="index.html" class="list-group-item"><i
-                                    class="bi bi-cart-plus"></i>e-Commerce</a>
-                            <a href="index2.html" class="list-group-item"><i class="bi bi-wallet"></i>Sales</a>
-                            <a href="index3.html" class="list-group-item"><i
-                                    class="bi bi-bar-chart-line"></i>Analytics</a>
-                            <a href="index4.html" class="list-group-item"><i class="bi bi-archive"></i>Project
-                                Management</a>
-                            <a href="index5.html" class="list-group-item"><i class="bi bi-cast"></i>CMS Dashboard</a>
+                            <a href="{{route('home')}}" class="list-group-item {{ url()->current() == route('home')? 'active' : ''}}"><i class="lni lni-home"></i>Home</a>
+                            <a href="{{route('starttest')}}" class="list-group-item {{ url()->current() == route('starttest')? 'active' : ''}}"><i class="lni lni-bolt"></i>Start Test</a>
+                            <a href="{{route('starttask')}}" class="list-group-item {{ url()->current() == route('starttask')? 'active' : ''}}"><i class="lni lni-bolt"></i>Start Task</a>
+                            <a href="{{route('home')}}" class="list-group-item"><i class="bi bi-bar-chart-line"></i>Results</a>
                         </div>
                     </div>
                     <div class="tab-pane fade {{strpos(url()->current(),'Questions')? 'active show' : ''}}" id="pills-application">
                         <div class="list-group list-group-flush">
                             <div class="list-group-item">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-0">Application</h5>
+                                    <h5 class="mb-0">Questions</h5>
                                 </div>
                                 <small class="mb-0">Some placeholder content</small>
                             </div>
-                            <a href="app-emailbox.html" class="list-group-item"><i
-                                    class="bi bi-envelope"></i>Email</a>
-                            <a href="{{route('addQues')}}" class="list-group-item {{ url()->current() == route('addQues')? 'active' : ''}}"><i class="bi bi-chat-left-text"></i> Add Questions</a>
-                            <a href="" class="list-group-item"><i class="bi bi-archive"></i>File
-                                Manager</a>
-                            <a href="app-to-do.html" class="list-group-item"><i class="bi bi-check2-square"></i>Todo
-                                List</a>
-                            <a href="app-invoice.html" class="list-group-item"><i
-                                    class="bi bi-receipt"></i>Invoice</a>
+                            <a href="{{route('questions')}}" class="list-group-item {{ url()->current() == route('questions')? 'active' : ''}}" class="list-group-item">
+                                <i class="lni lni-database"></i> Questions</a>
+                            <a href="{{route('addQues')}}" class="list-group-item {{ url()->current() == route('addQues')? 'active' : ''}}"><i class="lni lni-circle-plus">
+                                </i> Add Questions</a>
+                            <a href="{{route('Tasks')}}" class="list-group-item {{ url()->current() == route('Tasks')? 'active' : ''}}" class="list-group-item">
+                                <i class="lni lni-database"></i> Tasks</a>
+                            <a href="{{route('addTask')}}" class="list-group-item {{ url()->current() == route('addTask')? 'active' : ''}}"><i class="lni lni-circle-plus">
+                                </i> Add Tasks</a>
+                           
+                        </div>
+                    </div>
+                    <div class="tab-pane fade {{strpos(url()->current(),'Administration')? 'active show' : ''}}" id="pills-admin">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-0">Administration</h5>
+                                </div>
+                                <small class="mb-0">Some placeholder content</small>
+                            </div>
+                            <a href="{{route('testcount')}}" class="list-group-item {{ url()->current() == route('testcount')? 'active' : ''}}" class="list-group-item">
+                                <i class="lni lni-database"></i> Test Count</a>
                         </div>
                     </div>
                 </div>
             </div>
         </aside>
-        <!--start sidebar -->
 
         <main class="page-content">
             @yield('content')
@@ -426,14 +436,12 @@
     <!-- Bootstrap bundle JS -->
     
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-    <!--plugins-->
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
-    <script src="{{ asset('assets/js/pace.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-    <!--app-->
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    @yield('scripts')
+    @stack('scripts')
+    
 </body>
 
 
