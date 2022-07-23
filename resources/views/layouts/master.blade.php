@@ -309,7 +309,7 @@
                             <a href="{{route('home')}}" class="list-group-item {{ url()->current() == route('home')? 'active' : ''}}"><i class="lni lni-home"></i>Home</a>
                             <a href="{{route('starttest')}}" class="list-group-item {{ url()->current() == route('starttest')? 'active' : ''}}"><i class="lni lni-bolt"></i>Start Test</a>
                             <a href="{{route('starttask')}}" class="list-group-item {{ url()->current() == route('starttask')? 'active' : ''}}"><i class="lni lni-bolt"></i>Start Task</a>
-                            <a href="{{route('home')}}" class="list-group-item"><i class="bi bi-bar-chart-line"></i>Results</a>
+                            <a href="{{route('results')}}" class="list-group-item {{ url()->current() == route('results')? 'active' : ''}}"><i class="bi bi-bar-chart-line"></i>Results</a>
                         </div>
                     </div>
                     <div class="tab-pane fade {{strpos(url()->current(),'Questions')? 'active show' : ''}}" id="pills-application">

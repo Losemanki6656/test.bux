@@ -1,32 +1,32 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Forms</div>
-    <div class="ps-3">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0 p-0">
-                <li class="breadcrumb-item"><a href="/"><i class="bx bx-home-alt"></i></a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">Start Test</li>
-            </ol>
-        </nav>
-    </div>
-    <div class="ms-auto">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary">Settings</button>
-            <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
-                data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
-                    href="javascript:;">Action</a>
-                <a class="dropdown-item" href="javascript:;">Another action</a>
-                <a class="dropdown-item" href="javascript:;">Something else here</a>
-                <div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated link</a>
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">Forms</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="/"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Start Test</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="ms-auto">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary">Settings</button>
+                <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
+                    data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
+                        href="javascript:;">Action</a>
+                    <a class="dropdown-item" href="javascript:;">Another action</a>
+                    <a class="dropdown-item" href="javascript:;">Something else here</a>
+                    <div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated link</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
     <div class="row">
         <div class="col-xl-8 mx-auto">
             <div class="card radius-10 w-100">
@@ -49,7 +49,7 @@
                                     <div class="card radius-10 mb-0 shadow-none bg-light-purple">
                                         <div class="card-body p-4">
                                             <div class="text-center">
-                                                <h5 class="mb-0 text-purple">{{$count->count}}</h5>
+                                                <h5 class="mb-0 text-purple">{{ $count->count }}</h5>
                                                 <p class="mb-0 text-purple">Test Count</p>
                                             </div>
                                         </div>
@@ -59,7 +59,7 @@
                                     <div class="card radius-10 mb-0 shadow-none bg-light-orange">
                                         <div class="card-body p-4">
                                             <div class="text-center">
-                                                <h5 class="mb-0 text-orange">{{$count->test_time}} min</h5>
+                                                <h5 class="mb-0 text-orange">{{ $count->test_time }} min</h5>
                                                 <p class="mb-0 text-orange">Load Time</p>
                                             </div>
                                         </div>
@@ -101,7 +101,13 @@
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <button type="submit" class="btn btn-primary px-5 radius-30" style="width: 100%">Start</button>
+                                        @if ($status == false)
+                                            <button type="submit" class="btn btn-primary px-5 radius-30"
+                                            style="width: 100%">Start</button>
+                                        @else
+                                            <button type="submit" class="btn btn-warning px-5 radius-30"
+                                            style="width: 100%">Continue</button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -111,6 +117,7 @@
             </div>
         </div>
     </div>
+    
 @endsection
 
 @section('scripts')

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\Task;
 use App\Models\TestCount;
+use App\Models\ResultTest;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -171,12 +173,17 @@ class HomeController extends Controller
 
     public function starttest()
     {
+        $status = false;
         $count = TestCount::find(1);
         $questions = Question::count();
 
+        $xz = ResultTest::where('user_id',Auth::user()->id)->where('status',false)->get();
+        if($xz->count()) $status = true;
+
         return view('test.start',[
             'count' => $count,
-            'questions' =>  $questions
+            'questions' =>  $questions,
+            'status' => $status
         ]);
     }
 
@@ -201,11 +208,96 @@ class HomeController extends Controller
 
     public function runtest(Request $request)
     {
+        $xz = ResultTest::where('user_id',Auth::user()->id)->where('status',false)->get();
         $count = TestCount::find(1);
-        $questions = Question::where('lang_id',$request->lang_id)->inRandomOrder()->limit($count->count)->get();
+        
+        if( $xz->count() ) {
+
+            $arr = explode(',', $xz[0]->quests);
+            $questions = Question::whereIn('id', $arr )->get();
+
+            $ticketTime = strtotime($xz[0]->created_at);
+
+            $difference = time() -  $ticketTime;
+            $times = $count->test_time * 60 - $difference;
+
+            $uid = $xz[0]->id;
+
+        } else {
+
+            $questions = Question::where('lang_id',$request->lang_id)->inRandomOrder()->limit($count->count)->get();
+            $arrques = $questions->pluck('id')->toArray();
+            $times = $count->test_time * 60;
+
+            $addRes = new ResultTest();
+            $addRes->user_id = Auth::user()->id; 
+            $addRes->lang_id = $request->lang_id;
+            $addRes->quests = implode(',', $arrques);
+            $addRes->count = $count->count;
+            $addRes->time1 = $count->test_time;
+            $addRes->save();
+
+            $uid = $addRes->id;
+            
+        }
 
         return view('test.runtest',[
-            'questions' => $questions
+            'questions' => $questions,
+            'times' => $times,
+            'uid' => $uid
+        ]);
+        
+    }
+
+    public function finishTest($id, Request $request)
+    {
+        $result = ResultTest::find($id);
+
+        if($result->status == false) {
+            $x = 0; $a = []; $res = 0; $z = 0; $y = []; $t = [];
+            
+            foreach ($request->result as $key => $value){
+                
+                $x ++;
+                $a[$x] = $key ."-". $value;
+                $t[$x] = $key;
+                $que = Question::find($key)->result;
+                if($que == $value) $res ++; else {
+                    $z ++; $y[$z] = $key . '-' . $value; 
+                }
+
+            }
+            $quests = explode(',',$result->quests);
+
+            foreach($quests as $sel) {
+                $q = 0;
+                foreach($t as $ted) {
+                    if($sel == $ted) {$q ++; break;}
+                }
+                if($q == 0) {
+                    $z++;
+                    $y[$z] = $sel . '-0';
+                }
+            }
+
+            $ticketTime = strtotime($result->created_at);
+            $difference = time() -  $ticketTime;
+
+            $result->results = implode(',',$a);
+            $result->resultfail = implode(',',$y);
+            $result->result = $res;
+            $result->time2 = (int)$difference/60;
+            $result->status = true;
+            $result->save();
+        }
+    }
+
+    public function results()
+    {
+        $results = ResultTest::where('user_id',Auth::user()->id)->where('status',true);
+
+        return view('test.results',[
+            'results' => $results->paginate(10)
         ]);
     }
 }
