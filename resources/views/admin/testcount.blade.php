@@ -34,6 +34,39 @@
                 </div>
             </div>
         </div>
+        <div class="col-xl-5">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <p class="mb-0 text-secondary">Task Count</p>
+                            <h4 class="my-1">{{$taskcount->count}}</h4>
+                            <p class="mb-0 font-13 text-success"> {{$taskcount->test_time}} minutes</p>
+                        </div>
+                        <div class="widget-icon-large bg-gradient-purple text-white ms-auto" onclick="FuncRestask()"><i class="bx bx-edit-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="display: none" id="editedTask">
+                <div class="card-body">
+                    <form action="{{route('EditTaskCount')}}" method="post">
+                        @csrf
+                        <div class="d-flex align-items-center">
+                            <div class="ms-auto">
+                                <input type="number" class="form-control" name="taskcount" placeholder="Type Count ..."> 
+                            </div>
+                            <div class="ms-auto">
+                                <input type="number" class="form-control" name="tasktime" placeholder="Type Time ..."> 
+                            </div>
+                            <div class="ms-auto"> <button class="btn btn-primary" type="submit"> <i class="bx bx-save"></i></button> </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -41,6 +74,9 @@
 <script>
     function FuncRes() {
         document.getElementById("editedTest").style.display = "block";
+    }
+    function FuncRestask() {
+        document.getElementById("editedTask").style.display = "block";
     }
 </script>
     <script>

@@ -35,6 +35,7 @@ Route::post('/Questions/DeleteTask/{id}', [App\Http\Controllers\HomeController::
 Route::get('/home/StartTest', [App\Http\Controllers\HomeController::class, 'starttest'])->name('starttest');
 Route::get('/home/StartTask', [App\Http\Controllers\HomeController::class, 'starttask'])->name('starttask');
 Route::post('/home/RunTest', [App\Http\Controllers\HomeController::class, 'runtest'])->name('runtest');
+Route::post('/home/RunTask', [App\Http\Controllers\HomeController::class, 'runtask'])->name('runtask');
 Route::post('/home/finishTest/{id}', [App\Http\Controllers\HomeController::class, 'finishTest'])->name('finishTest');
 
 
@@ -43,3 +44,4 @@ Route::get('/home/results', [App\Http\Controllers\HomeController::class, 'result
 
 Route::get('/Administration/Testcount', [App\Http\Controllers\HomeController::class, 'testcount'])->name('testcount');
 Route::post('/Administration/Testcount', [App\Http\Controllers\HomeController::class, 'EditTestCount'])->name('EditTestCount');
+Route::post('/Administration/Taskcount', [App\Http\Controllers\HomeController::class, 'EditTaskCount'])->name('EditTaskCount');

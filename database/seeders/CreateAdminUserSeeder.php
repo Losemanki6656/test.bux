@@ -22,6 +22,11 @@ class CreateAdminUserSeeder extends Seeder
             'test_time' => 25
         ]);
 
+        $test = TestCount::create([
+            'count' => 5,
+            'test_time' => 5
+        ]);
+
         $user = User::create([
             'name' => 'Administrator', 
             'phone' => '(97)-722-66-56',

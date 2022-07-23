@@ -25,6 +25,7 @@ class CreateResultTestsTable extends Migration
             $table->integer('time1')->nullable();
             $table->integer('time2')->nullable();
             $table->boolean('status')->default(false);
+            $table->boolean('status_test')->default(false);
             $table->timestamps();
         });
     }

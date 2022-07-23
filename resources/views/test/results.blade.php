@@ -56,8 +56,8 @@
                             <th>Minutes</th>
                             <th>Count</th>
                             <th>Result</th>
-                            <th>Lang</th>
-                            <th width="120px">Action</th>
+                            <th class="text-center">Lang</th>
+                            <th class="text-center" width="60px">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,98 +80,9 @@
                                     @endif
                                 </td>
                                 <td class="align-middle text-center">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#edit{{ $item->id }}" class="btn btn-sm btn-secondary"><i class="bx bx-edit-alt"></i></button>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#delete{{ $item->id }}" class="btn btn-sm btn-danger"><i class="bx bx-trash-alt"></i></button>
+                                    <button type="button" class="btn btn-sm btn-primary"><i class="bx bx-show"></i></button>
                                 </td>
                             </tr>
-                            <div class="modal fade" id="edit{{ $item->id }}" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <form action="{{route('EditQues',['id' => $item->id])}}" method="post">
-                                        @csrf
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                @if ($item->status_result == false)
-                                                    <div class="input-group mb-3"> <span class="input-group-text">Ques
-                                                        </span>
-                                                        <textarea class="form-control" name="ques" aria-label="With textarea">{{ $item->ques }}</textarea>
-                                                    </div>
-                                                    <div class="input-group mb-3"> <span class="input-group-text">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="ques_res" value="a" id="flexRadioDefault1">
-                                                                <label class="form-check-label"
-                                                                    for="flexRadioDefault1">A</label>
-                                                            </div>
-                                                        </span>
-                                                        <textarea class="form-control" name="ques_a_text" aria-label="With textarea">{{ $item->ques_a }}</textarea>
-                                                    </div>
-                                                    <div class="input-group mb-3"> <span class="input-group-text">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="ques_res" value="b" id="flexRadioDefault2">
-                                                                <label class="form-check-label"
-                                                                    for="flexRadioDefault2">B</label>
-                                                            </div>
-                                                        </span>
-                                                        <textarea class="form-control" name="ques_b_text" aria-label="With textarea">{{ $item->ques_b }}</textarea>
-                                                    </div>
-                                                    <div class="input-group mb-3"> <span class="input-group-text">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="ques_res" value="c"
-                                                                    id="flexRadioDefault3">
-                                                                <label class="form-check-label"
-                                                                    for="flexRadioDefault3">C</label>
-                                                            </div>
-                                                        </span>
-                                                        <textarea class="form-control" name="ques_c_text" aria-label="With textarea">{{ $item->ques_c }}</textarea>
-                                                    </div>
-                                                    <div class="input-group mb-3"> <span class="input-group-text">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="ques_res" value="d"
-                                                                    id="flexRadioDefault4">
-                                                                <label class="form-check-label"
-                                                                    for="flexRadioDefault4">D</label>
-                                                            </div>
-                                                        </span>
-                                                        <textarea class="form-control" name="ques_d_text" aria-label="With textarea">{{ $item->ques_d }}</textarea>
-                                                    </div>
-                                                @else
-                                                    <div class="input-group mb-3"> <span class="input-group-text">Ques
-                                                        </span>
-                                                        <textarea class="form-control" name="ques" aria-label="With textarea">{{ $item->ques }}</textarea>
-                                                    </div>
-                                                    <div class="input-group mb-3"> <span class="input-group-text">Result
-                                                        </span>
-                                                        <textarea class="form-control" name="result_text" aria-label="With textarea">{{ $item->result }}</textarea>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="modal fade" id="delete{{ $item->id }}" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <form action="{{route('DeleteQues',['id' => $item->id])}}" method="post">
-                                        @csrf
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <h5>Do you really want to delete ?</h5>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-danger">Delete Item</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
                         @endforeach
                     </tbody>
                 </table>
