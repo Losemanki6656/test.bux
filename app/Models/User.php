@@ -23,6 +23,7 @@ class User extends Authenticatable
         'address',
         'post_id',
         'password',
+        'status',
     ];
   
     /**

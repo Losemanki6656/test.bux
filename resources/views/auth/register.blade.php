@@ -70,8 +70,8 @@
                 </div>
                 <div class="col-12">
                     <div class="d-grid">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#Verification"
-                            class="btn btn-primary radius-30"  onclick="verification()">Sign in</button>
+                        <button type="submit"
+                            class="btn btn-primary radius-30">Sign in</button>
                     </div>
                 </div>
                 <div class="col-12">
@@ -82,82 +82,11 @@
         </form>
     </div>
 
-    <div class="modal fade" id="Verification" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Verification</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row mx-auto">
-                            <input type="text" id="code" class="form-control verification radius-30 text-center mb-3" placeholder="Enter Verification Code"> 
-                            <button type="button" id="tiles" class="btn btn-light radius-30" onclick="verification()"><i class="lni lni-reload"></i> Update Sms</button>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" onclick="submitForm()" class="btn btn-primary">Sign In</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('scripts')
-    <script>
-        $('.phone').inputmask('(99)-999-99-99');
-        $('.verification').inputmask('999999');
-    </script>
-    <script>
-        var resCode;
-        function verification() {
-            let phone = $('#phone_number').val();
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('verification') }}",
-                data: {
-                    "phone": phone,
-                    "_token": "{{ csrf_token() }}"
-                },
-                success: function(response) {
-                    init();
-                    resCode = response.code;
-                    console.log(response);
-                },
-                error: function(response) {
+<script>
+    $('.phone').inputmask('(99)-999-99-99');
+</script>
 
-                }
-            });
-        };
-        function submitForm(){
-            var code = $('#code').val();
-            if(code == resCode) {
-                document.getElementById('reg').submit();
-            } else 
-            {
-                console.log(code);
-            }
-        };
-    </script>
-    <script>
-        sec = 60; var timecount;
-        function init() {
-            timecount = setInterval(tick, 1000);
-        }
-        var countdown = document.getElementById("tiles");
-        function tick() {
-            sec--;
-            if (sec == 0) {
-                countdown.disabled = false;
-                clearInterval(timecount);
-                sec = 10;
-                countdown.innerHTML = "<i class='lni lni-reload'></i> Send Sms";
-            } else {
-                countdown.innerHTML = "Timer - " + sec;
-                countdown.disabled = true;
-            }
-
-        }
-    </script>
 @endsection

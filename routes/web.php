@@ -12,13 +12,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::post('/Verification', [App\Http\Controllers\HomeController::class, 'verification'])->name('verification');
+
 
 Auth::routes();
 Route::group(['middleware' => ['auth']], function() {
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
+Route::get('/VerificationPpage', [App\Http\Controllers\HomeController::class, 'verification_page'])->name('verification_page');
 Route::get('/Questions', [App\Http\Controllers\HomeController::class, 'questions'])->name('questions');
 Route::get('/Questions/addQues', [App\Http\Controllers\HomeController::class, 'addQues'])->name('addQues');
 Route::post('/Questions/addQuestions', [App\Http\Controllers\HomeController::class, 'addQuestions'])->name('addQuestions');

@@ -31,9 +31,14 @@ class HomeController extends Controller
 
     public function home()
     {
+        if(Auth::user()->status == false) return redirect()->route('verification_page');
+        else 
         return view('home');
     }
-
+    public function verification_page()
+    { 
+        return view('auth.verification');
+    }
 
     public function questions()
     {
