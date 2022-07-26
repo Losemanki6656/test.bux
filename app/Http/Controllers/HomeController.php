@@ -7,6 +7,8 @@ use App\Models\Question;
 use App\Models\Task;
 use App\Models\TestCount;
 use App\Models\ResultTest;
+use App\Models\Tema;
+use App\Models\Mavzu;
 use Auth;
 
 class HomeController extends Controller
@@ -456,5 +458,30 @@ class HomeController extends Controller
             @header('Content-type: text/html; charset=utf-8'); 
             echo $response;
         }
+    }
+
+    public function folders()
+    {
+        $themes = Tema::all();
+        return view('folders.folders',[
+            'themes' => $themes
+        ]);
+    }
+
+    public function AddFolder(Request $request)
+    {
+        $new = new Tema();
+        $new->name = $request->name;
+        $new->save();
+
+        return redirect()->back()->with('msg' ,1);
+    }
+
+    public function themes()
+    {
+        $themes = Tema::all();
+        return view('folders.mavzu',[
+            'themes' => $themes
+        ]);
     }
 }

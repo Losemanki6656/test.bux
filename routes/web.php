@@ -52,6 +52,8 @@ Route::post('ckeditor/upload', [App\Http\Controllers\HomeController::class, 'upl
 
 
 Route::get('/Questions/folders', [App\Http\Controllers\HomeController::class, 'folders'])->name('folders');
+Route::post('/Questions/AddFolder', [App\Http\Controllers\HomeController::class, 'AddFolder'])->name('AddFolder');
+
 Route::get('/Questions/themes', [App\Http\Controllers\HomeController::class, 'themes'])->name('themes');
 
 });
