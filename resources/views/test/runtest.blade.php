@@ -123,7 +123,7 @@
             countdown.innerHTML = "<span>" + minutes + " : </span><span>" + seconds + "</span>";
 
             if (minutes == 0 && seconds == 0) {
-                //document.getElementById('finishtest').submit();
+                document.getElementById('finishtest').submit();
             }
 
         }

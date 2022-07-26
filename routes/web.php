@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/Verification', [App\Http\Controllers\HomeController::class, 'verification'])->name('verification');
 
 Auth::routes();
-
+Route::group(['middleware' => ['auth']], function() {
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
 Route::get('/Questions', [App\Http\Controllers\HomeController::class, 'questions'])->name('questions');
@@ -45,3 +46,15 @@ Route::get('/home/results', [App\Http\Controllers\HomeController::class, 'result
 Route::get('/Administration/Testcount', [App\Http\Controllers\HomeController::class, 'testcount'])->name('testcount');
 Route::post('/Administration/Testcount', [App\Http\Controllers\HomeController::class, 'EditTestCount'])->name('EditTestCount');
 Route::post('/Administration/Taskcount', [App\Http\Controllers\HomeController::class, 'EditTaskCount'])->name('EditTaskCount');
+
+
+Route::post('ckeditor/upload', [App\Http\Controllers\HomeController::class, 'upload'])->name('ckeditor.image-upload');
+
+
+Route::get('/Questions/folders', [App\Http\Controllers\HomeController::class, 'folders'])->name('folders');
+Route::get('/Questions/themes', [App\Http\Controllers\HomeController::class, 'themes'])->name('themes');
+
+});
+
+
+

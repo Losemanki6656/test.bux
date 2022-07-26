@@ -2,50 +2,33 @@
 
 @section('content')
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Forms</div>
+        <div class="breadcrumb-title pe-3">Вопросы</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="/"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Add Tasks</li>
+                    <li class="breadcrumb-item active" aria-current="page">Добавить вопрос</li>
                 </ol>
             </nav>
-        </div>
-        <div class="ms-auto">
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary">Settings</button>
-                <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
-                    data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
-                        href="javascript:;">Action</a>
-                    <a class="dropdown-item" href="javascript:;">Another action</a>
-                    <a class="dropdown-item" href="javascript:;">Something else here</a>
-                    <div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated link</a>
-                </div>
-            </div>
         </div>
     </div>
     <div class="row">
         <form action="{{route('addTaskSucc')}}" method="post">
             @csrf
             <div class="col-xl-9 mx-auto">
-                <h6 class="mb-0 text-uppercase">Basic example</h6>
-                <hr />
                 <div class="card">
                     <div class="card-body">
-                        <div class="input-group mb-3"> <span class="input-group-text">Ques</span>
-                            <textarea class="form-control" name="ques" aria-label="With textarea"></textarea>
+                        <div class="mb-3"> 
+                            <label>Вопрос</label>
+                            <textarea class="ckeditor form-control" id="ques" name="ques"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <div class="input-group mb-3"> <span class="input-group-text">Result
-                            </span>
-                            <textarea class="form-control" name="result" aria-label="With textarea"></textarea>
-                        </div>
+                        <label>Ответ</label>
+                        <textarea class="form-control ckeditor" name="result" aria-label="With textarea"></textarea>
                     </div>
                 </div>
                 <div class="card">
@@ -57,8 +40,8 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <select class="form-select mb-3" name="lang_id" aria-label="Default select example">
-                                            <option value="1">Uz</option>
-                                            <option value="2">Ru</option>
+                                            <option value="1">Ru</option>
+                                            <option value="2">Uz</option>
                                             <option value="3">En</option>
                                         </select>
                                     </div>
@@ -79,6 +62,18 @@
 @endsection
 
 @section('scripts')
+<script src="{{asset('assets/ckeditor/ckeditor.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ckeditor').ckeditor();
+    });
+</script>
+<script type="text/javascript">
+    CKEDITOR.replace('ques', {
+        filebrowserUploadUrl: "{{route('ckeditor.image-upload', ['_token' => csrf_token() ])}}",
+        filebrowserUploadMethod: 'form'
+    });
+</script>
    <script>
     $(document).ready(function() {
         @if (\Session::has('msg'))

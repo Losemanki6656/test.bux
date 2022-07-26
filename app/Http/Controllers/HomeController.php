@@ -16,11 +16,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
+  
     /**
      * Show the application dashboard.
      *
@@ -382,5 +378,83 @@ class HomeController extends Controller
             'uid' => $uid
         ]);
         
+    }
+
+    public function verification(Request $request)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'http://notify.eskiz.uz/api/auth/login',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+            "email": "bloggerg420@gmail.com",
+            "password": "mM32oxhLFQAtVZwcJBZnVd5XcNs18zmVom6lfahf"
+        }
+        ',
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json'
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $json = json_decode($response, true);
+        $x = $json['data'];
+        $token = $x['token'];
+        curl_close($curl);
+
+        $char = ['(', ')', ' ','-','+'];
+        $replace = ['', '', '','',''];
+        $phone = str_replace($char, $replace, $request->phone);
+        $randomNumber = random_int(100000, 999999);
+        $text = $randomNumber." is your MSFO verification code.";
+        $curl = curl_init();    
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'http://notify.eskiz.uz/api/message/sms/send-batch',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>"{ \"messages\":[ {\"user_sms_id\":\"5284\",\"to\": \"998$phone\",\"text\": \"$text\"} ],\"from\":\"4546\",\"dispatch_id\":\"123\"}",
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer '.$token,
+            'Content-Type: application/json'
+        ),
+        ));
+
+        $response = curl_exec($curl);
+
+        $err = curl_error($curl);
+        curl_close($curl);
+        $json = json_decode($response, true);
+        $x = $json['status'];
+
+        return response()->json(['status' => $x, 'code' => $randomNumber], 200);
+    }
+
+    public function upload(Request $request)
+    {
+        if($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName.'_'.time().'.'.$extension;
+            $request->file('upload')->move(public_path('images'), $fileName);
+            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+            $url = asset('images/'.$fileName); 
+            $msg = 'Image successfully uploaded'; 
+            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
+               
+            @header('Content-type: text/html; charset=utf-8'); 
+            echo $response;
+        }
     }
 }

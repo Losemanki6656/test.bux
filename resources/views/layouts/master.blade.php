@@ -287,7 +287,7 @@
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-0">Dashboards</h5>
                                 </div>
-                                <small class="mb-0">Some placeholder content</small>
+                                <small class="mb-0">Некоторый заполнитель контента</small>
                             </div>
                             <a href="{{route('home')}}" class="list-group-item {{ url()->current() == route('home')? 'active' : ''}}"><i class="lni lni-home"></i>Home</a>
                             <a href="{{route('starttest')}}" class="list-group-item {{ url()->current() == route('starttest')? 'active' : ''}}"><i class="lni lni-bolt"></i>Start Test</a>
@@ -299,18 +299,22 @@
                         <div class="list-group list-group-flush">
                             <div class="list-group-item">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-0">Questions</h5>
+                                    <h5 class="mb-0">Тесты и Вопросы</h5>
                                 </div>
-                                <small class="mb-0">Some placeholder content</small>
+                                <small class="mb-0">Некоторый заполнитель контента</small>
                             </div>
                             <a href="{{route('questions')}}" class="list-group-item {{ url()->current() == route('questions')? 'active' : ''}}" class="list-group-item">
-                                <i class="lni lni-database"></i> Questions</a>
+                                <i class="lni lni-database"></i> Тесты</a>
                             <a href="{{route('addQues')}}" class="list-group-item {{ url()->current() == route('addQues')? 'active' : ''}}"><i class="lni lni-circle-plus">
-                                </i> Add Questions</a>
+                                </i> Добавить вопрос</a>
                             <a href="{{route('Tasks')}}" class="list-group-item {{ url()->current() == route('Tasks')? 'active' : ''}}" class="list-group-item">
-                                <i class="lni lni-database"></i> Tasks</a>
+                                <i class="lni lni-database"></i> Вопросы</a>
                             <a href="{{route('addTask')}}" class="list-group-item {{ url()->current() == route('addTask')? 'active' : ''}}"><i class="lni lni-circle-plus">
-                                </i> Add Tasks</a>
+                                </i> Добавить вопрос</a>
+
+                            <a href="{{route('folders')}}" class="list-group-item {{ url()->current() == route('folders')? 'active' : ''}}" class="list-group-item">
+                                <i class="lni lni-circle-plus"></i> Добавить Тема</a>
+                            <a href="{{route('themes')}}" class="list-group-item {{ url()->current() == route('themes')? 'active' : ''}}"><i class="lni lni-circle-plus"></i> Добавить Задания</a>
                            
                         </div>
                     </div>
