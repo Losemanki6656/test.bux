@@ -9,6 +9,7 @@ use App\Models\TestCount;
 use App\Models\ResultTest;
 use App\Models\Tema;
 use App\Models\Mavzu;
+use App\Models\User;
 use Auth;
 
 class HomeController extends Controller
@@ -32,14 +33,24 @@ class HomeController extends Controller
     public function home()
     {
         if(Auth::user()->status == false) return redirect()->route('verification_page');
-        else 
+            else 
         return view('home');
     }
     public function verification_page()
     { 
-        return view('auth.verification');
+        if(Auth::user()->status == true) return redirect()->route('home');
+            else 
+            return view('auth.verification');
+        
     }
+    public function activation(Request $request)
+    { 
+        $user = User::find(Auth::user()->id);
+        $user->status = true;
+        $user->save();
 
+        return redirect()->back()->with('msg' , 1);
+    }
     public function questions()
     {
         $questions = Question::query()
@@ -417,7 +428,7 @@ class HomeController extends Controller
 
         $char = ['(', ')', ' ','-','+'];
         $replace = ['', '', '','',''];
-        $phone = str_replace($char, $replace, $request->phone);
+        $phone = str_replace($char, $replace, Auth::user()->phone);
         $randomNumber = random_int(100000, 999999);
         $text = $randomNumber." is your MSFO verification code.";
         $curl = curl_init();    
