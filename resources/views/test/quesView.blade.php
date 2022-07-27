@@ -18,7 +18,7 @@
     </div>
     <div class="row">
         <div class="col-3 mx-auto">
-            <a href="" class="btn btn-primary radius-30"> Начать Тест</a>
+            <a href="{{ route('taskrun',['id' => $task->id]) }}" class="btn btn-primary radius-30"> Начать Тест</a>
         </div>
     </div>
 @endsection

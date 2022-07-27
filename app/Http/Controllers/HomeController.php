@@ -560,4 +560,14 @@ class HomeController extends Controller
             'task' => $task
         ]);
     }
+
+    public function taskrun($id)
+    {
+        $tasks = Task::where('mavzu_id',$id)->paginate(1);
+        $times = 600;
+        return view('test.runtask',[
+            'tasks' => $tasks,
+            'times' => $times
+        ]);
+    }
 }

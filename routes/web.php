@@ -64,6 +64,7 @@ Route::get('/Questions/questaskview/{id}', [App\Http\Controllers\HomeController:
 
 Route::get('/home/ThemesF/{id}', [App\Http\Controllers\HomeController::class, 'ThemesF'])->name('ThemesF');
 Route::get('/home/QuesView/{id}', [App\Http\Controllers\HomeController::class, 'QuesView'])->name('QuesView');
+Route::get('/home/taskrun/{id}', [App\Http\Controllers\HomeController::class, 'taskrun'])->name('taskrun');
 
 
 });
