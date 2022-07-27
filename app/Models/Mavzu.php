@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Mavzu extends Model
 {
     use HasFactory;
+
+    
+    public function tasks() 
+     {
+          return $this->hasMany(Task::class,'mavzu_id');
+      }
 }

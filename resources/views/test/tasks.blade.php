@@ -26,7 +26,7 @@
                             <div class="ms-auto">
                                 <label><span
                                         class="fw-bold text-primary">Создано:</span>{{ $item->created_at->format('Y-m-d') }}</label>
-                                <a type="button" href="{{route('TaskView',['id' => $item->id])}}" class="btn btn-primary radius-30"><i class="lni lni-eye"></i>
+                                <a type="button" href="{{route('QuesView',['id' => $item->id])}}" class="btn btn-primary radius-30"><i class="lni lni-eye"></i>
                                     Посмотреть задачи
                                 </a>
                             </div>

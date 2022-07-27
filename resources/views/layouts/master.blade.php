@@ -289,10 +289,10 @@
                                 </div>
                                 <small class="mb-0">Некоторый заполнитель контента</small>
                             </div>
-                            <a href="{{route('home')}}" class="list-group-item {{ url()->current() == route('home')? 'active' : ''}}"><i class="lni lni-home"></i>Home</a>
-                            <a href="{{route('starttest')}}" class="list-group-item {{ url()->current() == route('starttest')? 'active' : ''}}"><i class="lni lni-bolt"></i>Start Test</a>
-                            <a href="{{route('starttask')}}" class="list-group-item {{ url()->current() == route('starttask')? 'active' : ''}}"><i class="lni lni-bolt"></i>Start Task</a>
-                            <a href="{{route('results')}}" class="list-group-item {{ url()->current() == route('results')? 'active' : ''}}"><i class="bi bi-bar-chart-line"></i>Results</a>
+                            <a href="{{route('home')}}" class="list-group-item {{ url()->current() == route('home')? 'active' : ''}}"><i class="lni lni-home"></i>Главное меню</a>
+                            <a href="{{route('starttest')}}" class="list-group-item {{ url()->current() == route('starttest')? 'active' : ''}}"><i class="lni lni-bolt"></i>Начать тест</a>
+                            <a href="{{route('starttask')}}" class="list-group-item {{ url()->current() == route('starttask')? 'active' : ''}}"><i class="lni lni-bolt"></i>Вопросы</a>
+                            <a href="{{route('results')}}" class="list-group-item {{ url()->current() == route('results')? 'active' : ''}}"><i class="bi bi-bar-chart-line"></i>Резултаты</a>
                         </div>
                     </div>
                     <div class="tab-pane fade {{strpos(url()->current(),'Questions')? 'active show' : ''}}" id="pills-application">
@@ -307,14 +307,12 @@
                                 <i class="lni lni-database"></i> Тесты</a>
                             <a href="{{route('addQues')}}" class="list-group-item {{ url()->current() == route('addQues')? 'active' : ''}}"><i class="lni lni-circle-plus">
                                 </i> Добавить вопрос</a>
-                            <a href="{{route('Tasks')}}" class="list-group-item {{ url()->current() == route('Tasks')? 'active' : ''}}" class="list-group-item">
-                                <i class="lni lni-database"></i> Вопросы</a>
-                            <a href="{{route('addTask')}}" class="list-group-item {{ url()->current() == route('addTask')? 'active' : ''}}"><i class="lni lni-circle-plus">
-                                </i> Добавить вопрос</a>
-
                             <a href="{{route('folders')}}" class="list-group-item {{ url()->current() == route('folders')? 'active' : ''}}" class="list-group-item">
-                                <i class="lni lni-circle-plus"></i> Добавить Тема</a>
-                            <a href="{{route('themes')}}" class="list-group-item {{ url()->current() == route('themes')? 'active' : ''}}"><i class="lni lni-circle-plus"></i> Добавить Задания</a>
+                                <i class="lni lni-database"></i> Темы</a>
+                            <a href="{{route('themes')}}" class="list-group-item {{ url()->current() == route('themes')? 'active' : ''}}"> <i class="lni lni-database"></i> Задание</a>
+                            <a href="{{route('addthemes')}}" class="list-group-item {{ url()->current() == route('addthemes')? 'active' : ''}}"><i class="lni lni-circle-plus"></i>Добавить Задание</a> 
+                             <a href="{{route('addTask')}}" class="list-group-item {{ url()->current() == route('addTask')? 'active' : ''}}"><i class="lni lni-circle-plus">
+                            </i> Добавить вопрос</a>
                            
                         </div>
                     </div>

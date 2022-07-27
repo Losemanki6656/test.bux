@@ -146,7 +146,10 @@ class HomeController extends Controller
 
     public function addTask()
     {
-        return view('questions.addtasks');
+        $themes = Mavzu::all();
+        return view('questions.addtasks',[
+            'themes' => $themes
+        ]);
     }
     
     public function addQuestions(Request $request) 
@@ -175,8 +178,12 @@ class HomeController extends Controller
 
     public function addTaskSucc(Request $request) 
     {
+            $tema = Mavzu::find($request->mavzu_id);
+
             $que = new Task();
             $que->lang_id = $request->lang_id;
+            $que->tema_id = $tema->tema_id;
+            $que->mavzu_id = $request->mavzu_id;
             $que->ques = $request->ques;
             $que->result = $request->result;
             $que->save();
@@ -336,17 +343,10 @@ class HomeController extends Controller
 
     public function starttask()
     {
-        $status = false;
-        $count = TestCount::find(2);
-        $questions = Question::count();
+        $themes = Tema::with('mavzu')->get();
 
-        $xz = ResultTest::where('user_id',Auth::user()->id)->where('status',false)->where('status_test',true)->get();
-        if($xz->count()) $status = true;
-
-        return view('test.starttask',[
-            'count' => $count,
-            'questions' =>  $questions,
-            'status' => $status
+        return view('folders.folders',[
+            'themes' => $themes
         ]);
     }
 
@@ -478,7 +478,7 @@ class HomeController extends Controller
 
     public function folders()
     {
-        $themes = Tema::all();
+        $themes = Tema::with('mavzu')->get();
         return view('folders.folders',[
             'themes' => $themes
         ]);
@@ -496,8 +496,68 @@ class HomeController extends Controller
     public function themes()
     {
         $themes = Tema::all();
+        $tasks = Mavzu::with('tasks')->get();
+
         return view('folders.mavzu',[
-            'themes' => $themes
+            'themes' => $themes,
+            'tasks' => $tasks
+        ]);
+    }
+    public function addthemes()
+    { 
+        $themes = Tema::all();
+        $tasks = Mavzu::all();
+
+        return view('folders.addthemes',[
+            'themes' => $themes,
+            'tasks' => $tasks
+        ]);
+    }
+    public function AddThem(Request $request)
+    {
+        $new = new Mavzu();
+        $new->tema_id = $request->them_id;
+        $new->name = $request->name;
+        $new->text1 = $request->text1;
+        $new->text2 = $request->text2;
+        $new->save();
+
+        return redirect()->back()->with('msg' ,1);
+    }
+
+    public function TaskView($id)
+    {
+        $task = Mavzu::find($id);
+
+        return view('folders.taskview',[
+            'task' => $task
+        ]);
+    }
+
+    public function questaskview($id)
+    {
+        $tasks = Task::where('mavzu_id',$id)->paginate(1);
+
+        return view('test.taskview',[
+            'tasks' => $tasks
+        ]);
+    }
+
+    public function ThemesF($id)
+    {
+        $tasks = Mavzu::where('tema_id',$id)->get();
+
+        return view('test.tasks',[
+            'tasks' => $tasks
+        ]);
+    }
+
+    public function QuesView($id)
+    {
+        $task = Mavzu::find($id);
+
+        return view('test.quesview',[
+            'task' => $task
         ]);
     }
 }

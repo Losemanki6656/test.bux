@@ -14,29 +14,35 @@
         </div>
     </div>
     <div class="row">
-        <form action="{{ route('addTaskSucc') }}" method="post">
+        <form action="{{ route('AddThem') }}" method="post">
             @csrf
             <div class="col-xl-9 mx-auto">
                 <div class="card">
                     <div class="card-body">
                         <div class="mb-3">
-                            <label for=""> Выберите тему</label>
-                            <select name="mavzu_id" class="form-select">
-                                @foreach ($themes as $them)
-                                    <option value="{{ $them->id }}">{{ $them->name }}</option>
-                                @endforeach
-                            </select>
+                            <label for=""> Выберите название</label>
+                            <input type="text" class="form-control" name="name" placeholder="Введите название задач">
+                        </div>
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col">
+                                    <label for=""> Выберите тему</label>
+                                    <select name="them_id" class="form-select">
+                                        @foreach ($themes as $them)
+                                            <option value="{{ $them->id }}">{{ $them->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for=""> Количество задач</label>
+                                    <input type="number" class="form-control" name="text2" placeholder="Введите количество задач">
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label>Вопрос</label>
-                            <textarea class="ckeditor form-control" id="ques" name="ques"></textarea>
+                            <textarea class="ckeditor form-control" id="ques" name="text1"></textarea>
                         </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <label>Ответ</label>
-                        <textarea class="form-control ckeditor" name="result" aria-label="With textarea"></textarea>
                     </div>
                 </div>
                 <div class="card">
@@ -46,13 +52,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <select class="form-select mb-3" name="lang_id" aria-label="Default select example">
-                                            <option value="1">Ru</option>
-                                            <option value="2">Uz</option>
-                                            <option value="3">En</option>
-                                        </select>
-                                    </div>
+                                    <div class="col-6"></div>
                                     <div class="col-6">
                                         <button class="btn btn-primary" type="submit" style="width: 100%"><i
                                                 class="lni lni-save"></i>

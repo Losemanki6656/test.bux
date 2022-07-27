@@ -15,7 +15,7 @@
 
         <div class="ms-auto">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFolder"> <i
-                    class="lni lni-plus"></i>Добавить Задача
+                    class="lni lni-plus"></i>Добавить Тема
             </button>
         </div>
     </div>
@@ -25,7 +25,7 @@
                 <form action="{{ route('AddFolder') }}" method="post">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title">Добавить Задача</h5>
+                        <h5 class="modal-title">Добавить Тема</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -65,9 +65,9 @@
                                     </div>
                                     <div class="sales-count ms-auto">
                                         <label><span class="fw-bold text-primary">Создано:</span>{{$item->created_at->format('Y-m-d')}}</label>
-                                        <button type="button" class="btn btn-warning"> Задача <span
-                                                class="badge bg-dark">4</span>
-                                        </button>
+                                        <a href="{{ route('ThemesF',['id' => $item->id ]) }}" type="button" class="btn btn-warning"> Задача <span
+                                                class="badge bg-dark">{{$item->mavzu->count()}}</span>
+                                        </a>
                                        
                                     </div>
                                 </div>
