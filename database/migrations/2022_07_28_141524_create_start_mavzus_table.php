@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMavzusTable extends Migration
+class CreateStartMavzusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateMavzusTable extends Migration
      */
     public function up()
     {
-        Schema::create('mavzus', function (Blueprint $table) {
+        Schema::create('start_mavzus', function (Blueprint $table) {
             $table->id();
-            $table->integer('tema_id');
-            $table->string('name');
-            $table->text('text1')->nullable();
-            $table->text('text2')->nullable();
-            $table->text('text3')->nullable();
-            $table->integer('time_count')->default(0);
+            $table->integer('mavzu_id');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });
@@ -33,6 +28,6 @@ class CreateMavzusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mavzus');
+        Schema::dropIfExists('start_mavzus');
     }
 }
