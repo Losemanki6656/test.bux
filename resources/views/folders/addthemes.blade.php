@@ -49,6 +49,14 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6">
+                               <div class="row">
+                                    <div class="col">
+                                        <input type="number" name="ball" placeholder="Ввидите Балл" class="form-control" required>
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" name="time_count" placeholder="Ввидите время(минут)" class="form-control" required>
+                                    </div>
+                               </div>
                             </div>
                             <div class="col-6">
                                 <div class="row">

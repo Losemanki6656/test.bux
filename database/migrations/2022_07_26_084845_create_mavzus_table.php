@@ -19,7 +19,7 @@ class CreateMavzusTable extends Migration
             $table->string('name');
             $table->text('text1')->nullable();
             $table->text('text2')->nullable();
-            $table->text('text3')->nullable();
+            $table->integer('ball')->nullable();
             $table->integer('time_count')->default(0);
             $table->boolean('status')->default(false);
             $table->timestamps();

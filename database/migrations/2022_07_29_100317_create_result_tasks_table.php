@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStartMavzusTable extends Migration
+class CreateResultTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateStartMavzusTable extends Migration
      */
     public function up()
     {
-        Schema::create('start_mavzus', function (Blueprint $table) {
+        Schema::create('result_tasks', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
             $table->integer('mavzu_id');
-            $table->boolean('status')->default(false);
+            $table->integer('task_id');
+            $table->boolean('status')->nullable();
+            $table->integer('ball')->default(0);
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateStartMavzusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('start_mavzus');
+        Schema::dropIfExists('result_tasks');
     }
 }

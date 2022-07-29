@@ -10,6 +10,7 @@ use App\Models\ResultTest;
 use App\Models\Tema;
 use App\Models\Mavzu;
 use App\Models\User;
+use App\Models\StartMavzu;
 use Auth;
 
 class HomeController extends Controller
@@ -520,6 +521,8 @@ class HomeController extends Controller
         $new->name = $request->name;
         $new->text1 = $request->text1;
         $new->text2 = $request->text2;
+        $new->ball = $request->ball;
+        $new->time_count = $request->time_count ?? 0;
         $new->save();
 
         return redirect()->back()->with('msg' ,1);
@@ -564,7 +567,22 @@ class HomeController extends Controller
     public function taskrun($id)
     {
         $tasks = Task::where('mavzu_id',$id)->paginate(1);
-        $times = 600;
+        $times = Mavzu::find($id)->time_count * 60;
+
+        $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->get();
+        if($x->count()) {
+            $startMavzu = $x[0];
+        } else {
+            $startMavzu = new StartMavzu();
+            $startMavzu->user_id = Auth::user()->id;
+            $startMavzu->mavzu_id = $id;
+            $startMavzu->save();
+        }
+       
+        $ticketTime = strtotime($startMavzu->created_at);
+        $difference = time() -  $ticketTime;
+        $times = $times - $difference;
+
         return view('test.runtask',[
             'tasks' => $tasks,
             'times' => $times
