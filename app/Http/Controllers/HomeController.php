@@ -11,6 +11,7 @@ use App\Models\Tema;
 use App\Models\Mavzu;
 use App\Models\User;
 use App\Models\StartMavzu;
+use App\Models\ResultTask;
 use Auth;
 
 class HomeController extends Controller
@@ -585,6 +586,8 @@ class HomeController extends Controller
         $tasks = Task::where('mavzu_id',$id)->paginate(1);
         $times = Mavzu::find($id)->time_count * 60;
 
+        $result = ResultTask::where('task_id',$tasks[0]->id)->where('user_id',$id)->get();
+
         $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->get();
         if($x->count()) {
             $startMavzu = $x[0];
@@ -594,14 +597,54 @@ class HomeController extends Controller
             $startMavzu->mavzu_id = $id;
             $startMavzu->save();
         }
-       
+       //dd($result);
         $ticketTime = strtotime($startMavzu->created_at);
         $difference = time() -  $ticketTime;
         $times = $times - $difference;
 
         return view('test.runtask',[
             'tasks' => $tasks,
-            'times' => $times
+            'times' => $times,
+            'result' => $result
         ]);
+    }
+
+    public function sendResult($id, Request $request)
+    {
+        if($request->file1 != null){
+            $fileName1 = time().'.'.$request->file1->extension();
+            $path1 = $request->file1->storeAs('products', $fileName1);
+        }
+        if($request->file2 != null){
+            $fileName2 = time().'.'.$request->file2->extension();
+            $path2 = $request->file2->storeAs('products', $fileName2);
+        }
+        $task = Task::find($id);
+
+        $res = ResultTask::where('task_id',$id)->where('user_id',Auth::user()->id)->get();
+
+        if(count($res)) {
+            $resID = ResultTask::where('task_id',$id)->where('user_id',Auth::user()->id)->value('id');
+            $product =  ResultTask::find($resID);
+        } else {
+            $product = new ResultTask();
+        }
+
+        $product->user_id = Auth::user()->id;
+        $product->mavzu_id = $task->mavzu_id;
+        $product->task_id = $id;
+        $product->result = $request->result;
+
+        if($request->file1 != null){
+            $product->file1 =  'storage/files/' . $fileName1;
+        } else  $product->file1 = '';
+        if($request->file2 != null){
+            $product->file2 =  'storage/files/' . $fileName2;
+        } else  $product->file2 = '';
+
+        $product->save();
+        
+       
+        return redirect()->back()->with('msg' ,1);
     }
 }

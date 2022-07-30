@@ -67,6 +67,9 @@ Route::get('/home/QuesView/{id}', [App\Http\Controllers\HomeController::class, '
 Route::get('/home/taskrun/{id}', [App\Http\Controllers\HomeController::class, 'taskrun'])->name('taskrun');
 
 
+Route::post('/home/sendResult/{id}', [App\Http\Controllers\HomeController::class, 'sendResult'])->name('sendResult');
+
+
 });
 
 

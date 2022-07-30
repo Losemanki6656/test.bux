@@ -12,6 +12,11 @@
                 </ol>
             </nav>
         </div>
+        <div class="ms-auto">
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#finishtest"> <i
+                    class="lni lni-plus"></i>Закончить тест
+            </button>
+        </div>
     </div>
     <div class="row">
         <div class="col-10 mx-auto">
@@ -40,23 +45,26 @@
                 {{ $tasks->withQueryString()->links() }}
                 {!! $item->ques !!}
             @endforeach
-           <div class="mb-3">
-                <label>Ответ</label>
-                <textarea name="" class="form-control"></textarea>
-           </div>
-           <div class="mb-3">
-                <div class="row">
-                    <div class="col">
-                        <input type="file" class="form-control">
+            <form action="{{ route('sendResult',['id' => $item->id ]) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-3">
+                    <label>Ответ</label>
+                    <textarea name="result" class="form-control"> @if (count($result)) {{ $result[0]->result }} @endif </textarea>
+               </div>
+               <div class="mb-3">
+                    <div class="row">
+                        <div class="col">
+                            <input type="file" name="file1" class="form-control">
+                        </div>
+                        <div class="col">
+                            <input type="file" name="file2" class="form-control">
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" type="submit" style="width: 100%"> Отправить Решение</button>
+                        </div>
                     </div>
-                    <div class="col">
-                        <input type="file" class="form-control">
-                    </div>
-                    <div class="col">
-                        <button class="btn btn-primary" style="width: 100%"> Отправить Решение</button>
-                    </div>
-                </div>
-           </div>
+               </div>
+            </form>
         </div>
     </div>
 @endsection

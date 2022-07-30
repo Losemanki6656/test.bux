@@ -21,6 +21,8 @@ class CreateResultTasksTable extends Migration
             $table->text('result');
             $table->string('file1');
             $table->string('file2');
+            $table->boolean('status_task')->default('false');
+            $table->boolean('status2')->default('false');
             $table->boolean('status')->nullable();
             $table->integer('ball')->default(0);
             $table->timestamps();
