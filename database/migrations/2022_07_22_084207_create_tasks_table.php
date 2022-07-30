@@ -21,9 +21,6 @@ class CreateTasksTable extends Migration
             $table->text('result')->nullable();
             $table->text('ques')->nullable();
             $table->boolean('status')->default(false);
-            $table->boolean('status_task')->default(false);
-            $table->string('file1')->nullable();
-            $table->string('file2')->nullable();
             $table->integer('ball')->default(0);
             $table->timestamps();
         });

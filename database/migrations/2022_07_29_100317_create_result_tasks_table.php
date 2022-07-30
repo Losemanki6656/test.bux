@@ -18,6 +18,9 @@ class CreateResultTasksTable extends Migration
             $table->integer('user_id');
             $table->integer('mavzu_id');
             $table->integer('task_id');
+            $table->text('result');
+            $table->string('file1');
+            $table->string('file2');
             $table->boolean('status')->nullable();
             $table->integer('ball')->default(0);
             $table->timestamps();

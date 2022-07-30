@@ -549,9 +549,17 @@ class HomeController extends Controller
     public function ThemesF($id)
     {
         $tasks = Mavzu::where('tema_id',$id)->get();
+        $status = 0;
+
+        $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->get();
+        if($x->count()) {
+            $status = 1;
+            if($x[0]->status == true) $status = 2;
+        } 
 
         return view('test.tasks',[
-            'tasks' => $tasks
+            'tasks' => $tasks,
+            'status' => $status
         ]);
     }
 
@@ -559,8 +567,16 @@ class HomeController extends Controller
     {
         $task = Mavzu::find($id);
 
+        $status = 0;
+        $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->get();
+        if($x->count()) {
+            $status = 1;
+            if($x[0]->status == true) $status = 2;
+        } 
+
         return view('test.quesview',[
-            'task' => $task
+            'task' => $task,
+            'status' => $status
         ]);
     }
 

@@ -26,9 +26,15 @@
                             <div class="ms-auto">
                                 <label><span
                                         class="fw-bold text-primary">Создано:</span>{{ $item->created_at->format('Y-m-d') }}</label>
+                               @if ($status == 0)
                                 <a type="button" href="{{route('QuesView',['id' => $item->id])}}" class="btn btn-primary radius-30"><i class="lni lni-eye"></i>
-                                    Посмотреть задачи
-                                </a>
+                                        Посмотреть задачи
+                                    </a>
+                               @elseif($status == 1)
+                                <a type="button" href="{{route('QuesView',['id' => $item->id])}}" class="btn btn-warning radius-30"><i class="lni lni-eye"></i>
+                                        Продолжить
+                                    </a>
+                               @endif
                             </div>
                         </div>
                     </div>
