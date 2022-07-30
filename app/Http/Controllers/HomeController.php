@@ -551,16 +551,22 @@ class HomeController extends Controller
     {
         $tasks = Mavzu::where('tema_id',$id)->get();
         $status = 0;
+        $ball = 'Не активно';
 
         $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->get();
         if($x->count()) {
             $status = 1;
-            if($x[0]->status == true) $status = 2;
+            if($x[0]->status == true) {
+                $status = 2;
+                $ball = $x[0]->ball;
+            } 
+            
         } 
 
         return view('test.tasks',[
             'tasks' => $tasks,
-            'status' => $status
+            'status' => $status,
+            'ball' => $ball
         ]);
     }
 
@@ -597,7 +603,7 @@ class HomeController extends Controller
             $startMavzu->mavzu_id = $id;
             $startMavzu->save();
         }
-       //dd($result);
+
         $ticketTime = strtotime($startMavzu->created_at);
         $difference = time() -  $ticketTime;
         $times = $times - $difference;
@@ -646,5 +652,57 @@ class HomeController extends Controller
         
        
         return redirect()->back()->with('msg' ,1);
+    }
+
+    public function finishtask($id)
+    {
+        $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->value('id');
+
+        $res = StartMavzu::find($x);
+        $res->status = true;
+        $res->save();
+
+        $thmeId = Mavzu::find($res->mavzu_id)->tema_id;
+
+        //dd($res);
+        return redirect()->route('ThemesF',['id' => $thmeId]);
+    }
+
+    public function resultaskview()
+    {
+        $results = ResultTask::where('status_task',false)->with(['user','mavzu'])->paginate(10);
+
+        return view('results.resulttask',[
+            'results' => $results
+        ]);
+    }
+
+    public function balltoresult($id)
+    {
+        $result = ResultTask::with('task')->find($id);
+
+        return view('results.resultview',[
+            'result' => $result
+        ]);
+    }
+
+    public function taskSucc($id, Request $request)
+    {
+        if($request->succ) 
+        {
+            $result = ResultTask::find($id);
+            $result->status2 = true;
+            $result->status_task = true;
+            $result->ball = $request->ball;
+        } else if($request->dan) {
+            $result = ResultTask::find($id);
+            $result->status2 = false;
+            $result->status_task = true;
+            $result->ball = $request->ball;
+        }       
+        $result->save();
+
+        return redirect()->route('resultaskview');
+        
     }
 }

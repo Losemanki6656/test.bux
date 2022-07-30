@@ -68,6 +68,14 @@ Route::get('/home/taskrun/{id}', [App\Http\Controllers\HomeController::class, 't
 
 
 Route::post('/home/sendResult/{id}', [App\Http\Controllers\HomeController::class, 'sendResult'])->name('sendResult');
+Route::post('/home/finishtask/{id}', [App\Http\Controllers\HomeController::class, 'finishtask'])->name('finishtask');
+
+
+Route::get('/home/resultaskview', [App\Http\Controllers\HomeController::class, 'resultaskview'])->name('resultaskview');
+Route::get('/home/balltoresult/{id}', [App\Http\Controllers\HomeController::class, 'balltoresult'])->name('balltoresult');
+
+
+Route::post('/home/taskSucc/{id}', [App\Http\Controllers\HomeController::class, 'taskSucc'])->name('taskSucc');
 
 
 });

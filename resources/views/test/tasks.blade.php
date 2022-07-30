@@ -21,7 +21,13 @@
                         <div class="d-flex align-items-center">
                             <div class="">
                                 <p class="mb-1">{{ $item->name }}</p>
-                                <h6 class="mb-0 text-tiffany">Количество задач - {{ $item->text2 }}/{{$item->tasks->count()}}</h6>
+                                <h6 class="mb-0 text-tiffany">Количество задач - {{ $item->text2 }}/{{$item->tasks->count()}}, Балл - {{$item->ball}}/
+                                @if ($ball == null)
+                                    Не активно
+                                @else
+                                    {{$ball}}
+                                @endif
+                                </h6>
                             </div>
                             <div class="ms-auto">
                                 <label><span
@@ -33,6 +39,10 @@
                                @elseif($status == 1)
                                 <a type="button" href="{{route('QuesView',['id' => $item->id])}}" class="btn btn-warning radius-30"><i class="lni lni-eye"></i>
                                         Продолжить
+                                    </a>
+                               @else
+                                <a type="button" href="" class="btn btn-primary radius-30"><i class="lni lni-check"></i>
+                                        Решено
                                     </a>
                                @endif
                             </div>

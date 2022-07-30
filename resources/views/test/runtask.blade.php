@@ -17,6 +17,26 @@
                     class="lni lni-plus"></i>Закончить тест
             </button>
         </div>
+        <div class="modal fade" id="finishtest" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <form action="{{ route('finishtask',['id' => $tasks[0]->mavzu_id])}}" method="post">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Закончить тест</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>Вы действительно хотите закончить тест ?</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Назад</button>
+                            <button type="submit" class="btn btn-danger">Закончить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-10 mx-auto">

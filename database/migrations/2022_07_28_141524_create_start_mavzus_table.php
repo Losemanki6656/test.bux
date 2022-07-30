@@ -17,7 +17,7 @@ class CreateStartMavzusTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('mavzu_id');
-            $table->integer('ball')->default(0);
+            $table->integer('ball')->nullable();
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

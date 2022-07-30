@@ -313,6 +313,9 @@
                             <a href="{{route('addthemes')}}" class="list-group-item {{ url()->current() == route('addthemes')? 'active' : ''}}"><i class="lni lni-circle-plus"></i>Добавить Задание</a> 
                              <a href="{{route('addTask')}}" class="list-group-item {{ url()->current() == route('addTask')? 'active' : ''}}"><i class="lni lni-circle-plus">
                             </i> Добавить вопрос</a>
+                            <a href="{{route('resultaskview')}}" class="list-group-item {{ url()->current() == route('resultaskview')? 'active' : ''}}">
+                            <i class="lni lni-circle-plus">
+                            </i> Не проверинные</a>
                            
                         </div>
                     </div>
