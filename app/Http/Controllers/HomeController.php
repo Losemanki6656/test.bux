@@ -550,18 +550,23 @@ class HomeController extends Controller
     public function ThemesF($id)
     {
         $tasks = Mavzu::where('tema_id',$id)->get();
-        $status = 0;
+        $status = [];
         $ball = 'Не активно';
 
-        $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->get();
-        if($x->count()) {
-            $status = 1;
-            if($x[0]->status == true) {
-                $status = 2;
-                $ball = $x[0]->ball;
-            } 
-            
-        } 
+        foreach ($tasks as $task)
+        {
+            $status[$task->id] = 0;
+            $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$task->id)->get();
+            //dd($x);
+            if($x->count()) {
+                $status[$task->id] = 1;
+                if($x[0]->status == true) {
+                    $status[$task->id] = 2;
+                    $ball[$task->id] = ResultTask::where('mavzu_id',$task->id)->where('user_id',Auth::user()->id)->sum('ball');
+                }
+            }
+        }
+        
 
         return view('test.tasks',[
             'tasks' => $tasks,
@@ -592,7 +597,7 @@ class HomeController extends Controller
         $tasks = Task::where('mavzu_id',$id)->paginate(1);
         $times = Mavzu::find($id)->time_count * 60;
 
-        $result = ResultTask::where('task_id',$tasks[0]->id)->where('user_id',$id)->get();
+        $result = ResultTask::where('task_id',$tasks[0]->id)->where('user_id',Auth::user()->id)->get();
 
         $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->get();
         if($x->count()) {
@@ -603,7 +608,7 @@ class HomeController extends Controller
             $startMavzu->mavzu_id = $id;
             $startMavzu->save();
         }
-
+        //dd($x);
         $ticketTime = strtotime($startMavzu->created_at);
         $difference = time() -  $ticketTime;
         $times = $times - $difference;
@@ -704,5 +709,17 @@ class HomeController extends Controller
 
         return redirect()->route('resultaskview');
         
+    }
+
+    public function resultTaskVies($id)
+    {
+        
+        $tasks = Task::where('mavzu_id',$id)->paginate(1);
+        $result = ResultTask::where('task_id',$tasks[0]->id)->where('user_id',Auth::user()->id)->get();
+       
+        return view('results.resulttasks',[
+            'tasks' => $tasks,
+            'result' => $result
+        ]);
     }
 }

@@ -22,26 +22,26 @@
                             <div class="">
                                 <p class="mb-1">{{ $item->name }}</p>
                                 <h6 class="mb-0 text-tiffany">Количество задач - {{ $item->text2 }}/{{$item->tasks->count()}}, Балл - {{$item->ball}}/
-                                @if ($ball == null)
+                                @if ($ball[$item->id] == null)
                                     Не активно
                                 @else
-                                    {{$ball}}
+                                    {{$ball[$item->id]}}
                                 @endif
                                 </h6>
                             </div>
                             <div class="ms-auto">
                                 <label><span
                                         class="fw-bold text-primary">Создано:</span>{{ $item->created_at->format('Y-m-d') }}</label>
-                               @if ($status == 0)
+                               @if ($status[$item->id] == 0)
                                 <a type="button" href="{{route('QuesView',['id' => $item->id])}}" class="btn btn-primary radius-30"><i class="lni lni-eye"></i>
                                         Посмотреть задачи
                                     </a>
-                               @elseif($status == 1)
+                               @elseif($status[$item->id] == 1)
                                 <a type="button" href="{{route('QuesView',['id' => $item->id])}}" class="btn btn-warning radius-30"><i class="lni lni-eye"></i>
                                         Продолжить
                                     </a>
                                @else
-                                <a type="button" href="" class="btn btn-primary radius-30"><i class="lni lni-check"></i>
+                                <a type="button" href="{{ route('resultTaskVies',['id' => $item->id]) }}" class="btn btn-success radius-30"><i class="lni lni-check"></i>
                                         Решено
                                     </a>
                                @endif

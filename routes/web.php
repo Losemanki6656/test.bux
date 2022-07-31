@@ -71,12 +71,12 @@ Route::post('/home/sendResult/{id}', [App\Http\Controllers\HomeController::class
 Route::post('/home/finishtask/{id}', [App\Http\Controllers\HomeController::class, 'finishtask'])->name('finishtask');
 
 
-Route::get('/home/resultaskview', [App\Http\Controllers\HomeController::class, 'resultaskview'])->name('resultaskview');
-Route::get('/home/balltoresult/{id}', [App\Http\Controllers\HomeController::class, 'balltoresult'])->name('balltoresult');
+Route::get('/Questions/resultaskview', [App\Http\Controllers\HomeController::class, 'resultaskview'])->name('resultaskview');
+Route::get('/Questions/balltoresult/{id}', [App\Http\Controllers\HomeController::class, 'balltoresult'])->name('balltoresult');
 
 
-Route::post('/home/taskSucc/{id}', [App\Http\Controllers\HomeController::class, 'taskSucc'])->name('taskSucc');
-
+Route::post('/Questions/taskSucc/{id}', [App\Http\Controllers\HomeController::class, 'taskSucc'])->name('taskSucc');
+Route::get('/Questions/resultTaskVies/{id}', [App\Http\Controllers\HomeController::class, 'resultTaskVies'])->name('resultTaskVies');
 
 });
 
