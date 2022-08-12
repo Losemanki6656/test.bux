@@ -64,7 +64,7 @@
                                     <div class="col-6">
                                         <button class="btn btn-primary" type="submit" style="width: 100%"><i
                                                 class="lni lni-save"></i>
-                                            Save</button>
+                                            Сохранить</button>
                                     </div>
                                 </div>
                             </div>
