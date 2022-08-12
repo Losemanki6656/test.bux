@@ -586,7 +586,7 @@ class HomeController extends Controller
             if($x[0]->status == true) $status = 2;
         } 
 
-        return view('test.quesview',[
+        return view('test.quesView',[
             'task' => $task,
             'status' => $status
         ]);
