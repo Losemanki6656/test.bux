@@ -348,7 +348,7 @@ class HomeController extends Controller
     {
         $themes = Tema::with('mavzu')->get();
 
-        return view('folders.folders',[
+        return view('folders.usFolder',[
             'themes' => $themes
         ]);
     }
@@ -553,7 +553,8 @@ class HomeController extends Controller
 
     public function ThemesF($id)
     {
-        $tasks = Mavzu::where('tema_id',$id)->get();
+        if(auth()->user()->st_status == false) return back()->with('msg', 1);
+        $tasks = Mavzu::where('tema_id',$id)->where('status', true)->get();
         $status = [];
         $ball = 'Не активно';
 
@@ -734,5 +735,40 @@ class HomeController extends Controller
         $user->assignRole([$role->id]);
         
         dd(1);
+    }
+
+    public function users()
+    {
+        $users = User::paginate(10);
+
+        return view('admin.users',[
+            'users' => $users
+        ]);
+    }
+    public function editStatus($id, Request $request)
+    {
+        $us = User::find($id);
+        $us->st_status = $request->st_status;
+        $us->save();
+
+        return back()->with('msg', 1);
+    }
+
+    public function statusMavzu()
+    {
+        $users = Mavzu::with('tema')->paginate(10);
+
+        return view('admin.mavzu',[
+            'users' => $users
+        ]);
+    }
+
+    public function editStatusMavzu($id, Request $request)
+    {
+        $us = Mavzu::find($id);
+        $us->status = $request->st_status;
+        $us->save();
+
+        return back()->with('msg', 1);
     }
 }

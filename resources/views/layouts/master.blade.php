@@ -368,6 +368,15 @@
                                     <i class="lni lni-database"></i> Test Count</a>
                                 <a href="{{ route('adminRole') }}" class="list-group-item" class="list-group-item">
                                     <i class="lni lni-database"></i> Role</a>
+
+                                <a href="{{ route('users') }}"
+                                    class="list-group-item {{ url()->current() == route('users') ? 'active' : '' }}"
+                                    class="list-group-item">
+                                    <i class="lni lni-database"></i> Пользователи </a>
+                                <a href="{{ route('statusMavzu') }}"
+                                    class="list-group-item {{ url()->current() == route('statusMavzu') ? 'active' : '' }}"
+                                    class="list-group-item">
+                                    <i class="lni lni-database"></i> Задачи </a>
                             </div>
                         </div>
                     @endcan

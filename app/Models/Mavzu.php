@@ -14,4 +14,9 @@ class Mavzu extends Model
      {
           return $this->hasMany(Task::class,'mavzu_id');
       }
+
+      public function tema() 
+      {
+           return $this->belongsTo(Tema::class,'tema_id');
+       }
 }

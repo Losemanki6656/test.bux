@@ -29,6 +29,10 @@ Route::post('/Questions/DeleteQues/{id}', [App\Http\Controllers\HomeController::
 
 
 Route::get('/adminRole', [App\Http\Controllers\HomeController::class, 'adminRole'])->name('adminRole');
+Route::get('/Administration/users', [App\Http\Controllers\HomeController::class, 'users'])->name('users');
+Route::get('/Administration/statusMavzu', [App\Http\Controllers\HomeController::class, 'statusMavzu'])->name('statusMavzu');
+Route::post('/Administration/editStatus/{id}', [App\Http\Controllers\HomeController::class, 'editStatus'])->name('editStatus');
+Route::post('/Administration/editStatusMavzu/{id}', [App\Http\Controllers\HomeController::class, 'editStatusMavzu'])->name('editStatusMavzu');
 
 Route::get('/Questions/Tasks', [App\Http\Controllers\HomeController::class, 'Tasks'])->name('Tasks');
 Route::get('/Questions/addTask', [App\Http\Controllers\HomeController::class, 'addTask'])->name('addTask');
