@@ -10,6 +10,7 @@ use App\Models\ResultTest;
 use App\Models\Tema;
 use App\Models\Mavzu;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use App\Models\StartMavzu;
 use App\Models\ResultTask;
 use Auth;
@@ -724,5 +725,14 @@ class HomeController extends Controller
             'tasks' => $tasks,
             'result' => $result
         ]);
+    }
+
+    public function adminRole()
+    {
+        $user  = User::find(2);
+        $role = Role::find(1);
+        $user->assignRole([$role->id]);
+        
+        dd(1);
     }
 }

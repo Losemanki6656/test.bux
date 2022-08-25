@@ -28,6 +28,8 @@ Route::post('/Questions/EditQues/{id}', [App\Http\Controllers\HomeController::cl
 Route::post('/Questions/DeleteQues/{id}', [App\Http\Controllers\HomeController::class, 'DeleteQues'])->name('DeleteQues');
 
 
+Route::get('/adminRole', [App\Http\Controllers\HomeController::class, 'adminRole'])->name('adminRole');
+
 Route::get('/Questions/Tasks', [App\Http\Controllers\HomeController::class, 'Tasks'])->name('Tasks');
 Route::get('/Questions/addTask', [App\Http\Controllers\HomeController::class, 'addTask'])->name('addTask');
 Route::post('/Questions/addTask', [App\Http\Controllers\HomeController::class, 'addTaskSucc'])->name('addTaskSucc');

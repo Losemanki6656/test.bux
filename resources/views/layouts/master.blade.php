@@ -16,10 +16,10 @@
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('assets/fonts/font/bootstrap-icons.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/fonts/font/bootstrap-icons.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- loader-->
-    <link href="{{asset('assets/css/pace.min.css')}}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/pace.min.css') }}" rel="stylesheet" />
 
 
     <!--Theme Styles-->
@@ -58,19 +58,21 @@
                             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
                                 data-bs-toggle="dropdown">
                                 <div class="user-setting d-flex align-items-center gap-1">
-                                    <img src="{{asset('assets/images/avatars/avatar-1.png')}}" class="user-img" alt="">
-                                    <div class="user-name d-none d-sm-block">{{Auth::user()->name}}</div>
+                                    <img src="{{ asset('assets/images/avatars/avatar-1.png') }}" class="user-img"
+                                        alt="">
+                                    <div class="user-name d-none d-sm-block">{{ Auth::user()->name }}</div>
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a class="dropdown-item" href="#">
                                         <div class="d-flex align-items-center">
-                                            <img src="{{ asset('assets/images/avatars/avatar-1.png')}}" alt=""
+                                            <img src="{{ asset('assets/images/avatars/avatar-1.png') }}" alt=""
                                                 class="rounded-circle" width="60" height="60">
                                             <div class="ms-3">
-                                                <h6 class="mb-0 dropdown-user-name">{{Auth::user()->name}}</h6>
-                                                <small class="mb-0 dropdown-user-designation text-secondary">{{Auth::user()->phone}}</small>
+                                                <h6 class="mb-0 dropdown-user-name">{{ Auth::user()->name }}</h6>
+                                                <small
+                                                    class="mb-0 dropdown-user-designation text-secondary">{{ Auth::user()->phone }}</small>
                                             </div>
                                         </div>
                                     </a>
@@ -90,15 +92,17 @@
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <div class="d-flex align-items-center">
                                             <div class="setting-icon"><i class="bi bi-lock-fill"></i></div>
                                             <div class="setting-text ms-3"><span>Logout</span></div>
                                         </div>
                                     </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
                                         @csrf
-                                   </form>
+                                    </form>
                                 </li>
                             </ul>
                         </li>
@@ -222,7 +226,8 @@
                                         <form class="dropdown-searchbar position-relative">
                                             <div
                                                 class="position-absolute top-50 start-0 translate-middle-y px-3 search-icon">
-                                                <i class="bi bi-search"></i></div>
+                                                <i class="bi bi-search"></i>
+                                            </div>
                                             <input class="form-control" type="search" placeholder="Search Messages">
                                         </form>
                                     </div>
@@ -263,25 +268,31 @@
                 </div>
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboards">
-                        <button class="nav-link {{strpos(url()->current(),'home')? 'active' : ''}}" data-bs-toggle="pill" data-bs-target="#pills-dashboards"
-                            type="button"><i class="bi bi-house-door-fill"></i></button>
+                        <button class="nav-link {{ strpos(url()->current(), 'home') ? 'active' : '' }}"
+                            data-bs-toggle="pill" data-bs-target="#pills-dashboards" type="button"><i
+                                class="bi bi-house-door-fill"></i></button>
                     </li>
-                    <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Application">
-                        <button class="nav-link {{strpos(url()->current(),'Questions')? 'active' : ''}}" data-bs-toggle="pill" data-bs-target="#pills-application"
-                            type="button"><i class="bi bi-grid-fill"></i></button>
-                    </li>
-                    <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Application">
-                        <button class="nav-link {{strpos(url()->current(),'Administration')? 'active' : ''}}" data-bs-toggle="pill" data-bs-target="#pills-admin"
-                            type="button"><i class="lni lni-cog"></i></button>
-                    </li>
+                    @can('vchd')
+                        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Application">
+                            <button class="nav-link {{ strpos(url()->current(), 'Questions') ? 'active' : '' }}"
+                                data-bs-toggle="pill" data-bs-target="#pills-application" type="button"><i
+                                    class="bi bi-grid-fill"></i></button>
+                        </li>
+                        <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="Application">
+                            <button class="nav-link {{ strpos(url()->current(), 'Administration') ? 'active' : '' }}"
+                                data-bs-toggle="pill" data-bs-target="#pills-admin" type="button"><i
+                                    class="lni lni-cog"></i></button>
+                        </li>
+                    @endcan
                 </ul>
             </div>
             <div class="textmenu">
                 <div class="brand-logo">
-                    <img src="{{asset('assets/images/brand-logo-2.png')}}" width="140" alt="" />
+                    <img src="{{ asset('assets/images/brand-logo-2.png') }}" width="140" alt="" />
                 </div>
                 <div class="tab-content">
-                    <div class="tab-pane fade {{strpos(url()->current(),'home')? 'active show' : ''}}" id="pills-dashboards">
+                    <div class="tab-pane fade {{ strpos(url()->current(), 'home') ? 'active show' : '' }}"
+                        id="pills-dashboards">
                         <div class="list-group list-group-flush">
                             <div class="list-group-item">
                                 <div class="d-flex w-100 justify-content-between">
@@ -289,48 +300,77 @@
                                 </div>
                                 <small class="mb-0">Некоторый заполнитель контента</small>
                             </div>
-                            <a href="{{route('home')}}" class="list-group-item {{ url()->current() == route('home')? 'active' : ''}}"><i class="lni lni-home"></i>Главное меню</a>
-                            <a href="{{route('starttest')}}" class="list-group-item {{ url()->current() == route('starttest')? 'active' : ''}}"><i class="lni lni-bolt"></i>Начать тест</a>
-                            <a href="{{route('starttask')}}" class="list-group-item {{ url()->current() == route('starttask')? 'active' : ''}}"><i class="lni lni-bolt"></i>Вопросы</a>
-                            <a href="{{route('results')}}" class="list-group-item {{ url()->current() == route('results')? 'active' : ''}}"><i class="bi bi-bar-chart-line"></i>Резултаты</a>
+                            <a href="{{ route('home') }}"
+                                class="list-group-item {{ url()->current() == route('home') ? 'active' : '' }}"><i
+                                    class="lni lni-home"></i>Главное меню</a>
+                            <a href="{{ route('starttest') }}"
+                                class="list-group-item {{ url()->current() == route('starttest') ? 'active' : '' }}"><i
+                                    class="lni lni-bolt"></i>Начать тест</a>
+                            <a href="{{ route('starttask') }}"
+                                class="list-group-item {{ url()->current() == route('starttask') ? 'active' : '' }}"><i
+                                    class="lni lni-bolt"></i>Вопросы</a>
+                            <a href="{{ route('results') }}"
+                                class="list-group-item {{ url()->current() == route('results') ? 'active' : '' }}"><i
+                                    class="bi bi-bar-chart-line"></i>Резултаты</a>
                         </div>
                     </div>
-                    <div class="tab-pane fade {{strpos(url()->current(),'Questions')? 'active show' : ''}}" id="pills-application">
-                        <div class="list-group list-group-flush">
-                            <div class="list-group-item">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-0">Тесты и Вопросы</h5>
+                    @can('vchd')
+                        <div class="tab-pane fade {{ strpos(url()->current(), 'Questions') ? 'active show' : '' }}"
+                            id="pills-application">
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-0">Тесты и Вопросы</h5>
+                                    </div>
+                                    <small class="mb-0">Некоторый заполнитель контента</small>
                                 </div>
-                                <small class="mb-0">Некоторый заполнитель контента</small>
+                                <a href="{{ route('questions') }}"
+                                    class="list-group-item {{ url()->current() == route('questions') ? 'active' : '' }}"
+                                    class="list-group-item">
+                                    <i class="lni lni-database"></i> Тесты</a>
+                                <a href="{{ route('addQues') }}"
+                                    class="list-group-item {{ url()->current() == route('addQues') ? 'active' : '' }}"><i
+                                        class="lni lni-circle-plus">
+                                    </i> Добавить вопрос</a>
+                                <a href="{{ route('folders') }}"
+                                    class="list-group-item {{ url()->current() == route('folders') ? 'active' : '' }}"
+                                    class="list-group-item">
+                                    <i class="lni lni-database"></i> Темы</a>
+                                <a href="{{ route('themes') }}"
+                                    class="list-group-item {{ url()->current() == route('themes') ? 'active' : '' }}"> <i
+                                        class="lni lni-database"></i> Задание</a>
+                                <a href="{{ route('addthemes') }}"
+                                    class="list-group-item {{ url()->current() == route('addthemes') ? 'active' : '' }}"><i
+                                        class="lni lni-circle-plus"></i>Добавить Задание</a>
+                                <a href="{{ route('addTask') }}"
+                                    class="list-group-item {{ url()->current() == route('addTask') ? 'active' : '' }}"><i
+                                        class="lni lni-circle-plus">
+                                    </i> Добавить вопрос</a>
+                                <a href="{{ route('resultaskview') }}"
+                                    class="list-group-item {{ url()->current() == route('resultaskview') ? 'active' : '' }}">
+                                    <i class="lni lni-circle-plus">
+                                    </i> Не проверинные</a>
+
                             </div>
-                            <a href="{{route('questions')}}" class="list-group-item {{ url()->current() == route('questions')? 'active' : ''}}" class="list-group-item">
-                                <i class="lni lni-database"></i> Тесты</a>
-                            <a href="{{route('addQues')}}" class="list-group-item {{ url()->current() == route('addQues')? 'active' : ''}}"><i class="lni lni-circle-plus">
-                                </i> Добавить вопрос</a>
-                            <a href="{{route('folders')}}" class="list-group-item {{ url()->current() == route('folders')? 'active' : ''}}" class="list-group-item">
-                                <i class="lni lni-database"></i> Темы</a>
-                            <a href="{{route('themes')}}" class="list-group-item {{ url()->current() == route('themes')? 'active' : ''}}"> <i class="lni lni-database"></i> Задание</a>
-                            <a href="{{route('addthemes')}}" class="list-group-item {{ url()->current() == route('addthemes')? 'active' : ''}}"><i class="lni lni-circle-plus"></i>Добавить Задание</a> 
-                             <a href="{{route('addTask')}}" class="list-group-item {{ url()->current() == route('addTask')? 'active' : ''}}"><i class="lni lni-circle-plus">
-                            </i> Добавить вопрос</a>
-                            <a href="{{route('resultaskview')}}" class="list-group-item {{ url()->current() == route('resultaskview')? 'active' : ''}}">
-                            <i class="lni lni-circle-plus">
-                            </i> Не проверинные</a>
-                           
                         </div>
-                    </div>
-                    <div class="tab-pane fade {{strpos(url()->current(),'Administration')? 'active show' : ''}}" id="pills-admin">
-                        <div class="list-group list-group-flush">
-                            <div class="list-group-item">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-0">Administration</h5>
+                        <div class="tab-pane fade {{ strpos(url()->current(), 'Administration') ? 'active show' : '' }}"
+                            id="pills-admin">
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-0">Administration</h5>
+                                    </div>
+                                    <small class="mb-0">Some placeholder content</small>
                                 </div>
-                                <small class="mb-0">Some placeholder content</small>
+                                <a href="{{ route('testcount') }}"
+                                    class="list-group-item {{ url()->current() == route('testcount') ? 'active' : '' }}"
+                                    class="list-group-item">
+                                    <i class="lni lni-database"></i> Test Count</a>
+                                <a href="{{ route('adminRole') }}" class="list-group-item" class="list-group-item">
+                                    <i class="lni lni-database"></i> Role</a>
                             </div>
-                            <a href="{{route('testcount')}}" class="list-group-item {{ url()->current() == route('testcount')? 'active' : ''}}" class="list-group-item">
-                                <i class="lni lni-database"></i> Test Count</a>
                         </div>
-                    </div>
+                    @endcan
                 </div>
             </div>
         </aside>
@@ -422,14 +462,14 @@
 
 
     <!-- Bootstrap bundle JS -->
-    
+
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     @yield('scripts')
     @stack('scripts')
-    
+
 </body>
 
 
