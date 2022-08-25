@@ -69,6 +69,7 @@ Route::get('/Questions/TaskView/{id}', [App\Http\Controllers\HomeController::cla
 Route::get('/Questions/questaskview/{id}', [App\Http\Controllers\HomeController::class, 'questaskview'])->name('questaskview');
 
 Route::get('/home/ThemesF/{id}', [App\Http\Controllers\HomeController::class, 'ThemesF'])->name('ThemesF');
+Route::get('/home/MavzuF/{id}', [App\Http\Controllers\HomeController::class, 'MavzuF'])->name('MavzuF');
 Route::get('/home/QuesView/{id}', [App\Http\Controllers\HomeController::class, 'QuesView'])->name('QuesView');
 Route::get('/home/taskrun/{id}', [App\Http\Controllers\HomeController::class, 'taskrun'])->name('taskrun');
 

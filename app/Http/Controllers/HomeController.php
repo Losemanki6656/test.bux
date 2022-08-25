@@ -580,6 +580,34 @@ class HomeController extends Controller
         ]);
     }
 
+    public function MavzuF($id)
+    {
+        $tasks = Mavzu::where('tema_id',$id)->where('status', true)->get();
+        $status = [];
+        $ball = 'Не активно';
+
+        foreach ($tasks as $task)
+        {
+            $status[$task->id] = 0;
+            $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$task->id)->get();
+            //dd($x);
+            if($x->count()) {
+                $status[$task->id] = 1;
+                if($x[0]->status == true) {
+                    $status[$task->id] = 2;
+                    $ball[$task->id] = ResultTask::where('mavzu_id',$task->id)->where('user_id',Auth::user()->id)->sum('ball');
+                }
+            }
+        }
+        
+
+        return view('test.tasks',[
+            'tasks' => $tasks,
+            'status' => $status,
+            'ball' => $ball
+        ]);
+    }
+
     public function QuesView($id)
     {
         $task = Mavzu::find($id);
