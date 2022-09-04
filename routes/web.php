@@ -33,6 +33,7 @@ Route::get('/Administration/users', [App\Http\Controllers\HomeController::class,
 Route::get('/Administration/statusMavzu', [App\Http\Controllers\HomeController::class, 'statusMavzu'])->name('statusMavzu');
 Route::post('/Administration/editStatus/{id}', [App\Http\Controllers\HomeController::class, 'editStatus'])->name('editStatus');
 Route::post('/Administration/editStatusMavzu/{id}', [App\Http\Controllers\HomeController::class, 'editStatusMavzu'])->name('editStatusMavzu');
+Route::post('/Administration/deleteMavzu/{id}', [App\Http\Controllers\HomeController::class, 'deleteMavzu'])->name('deleteMavzu');
 
 Route::get('/Questions/Tasks', [App\Http\Controllers\HomeController::class, 'Tasks'])->name('Tasks');
 Route::get('/Questions/addTask', [App\Http\Controllers\HomeController::class, 'addTask'])->name('addTask');

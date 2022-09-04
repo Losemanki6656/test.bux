@@ -75,9 +75,15 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <select name="st_status" class="form-select">
+                                                <label>Статус</label>
+                                                <select name="st_status" class="form-select mb-3">
                                                     <option value="1"> Активно </option>
                                                     <option value="0"> Не Активно </option>
+                                                </select>
+                                                <label>Разришения</label>
+                                                <select name="roleSt" class="form-select">
+                                                    <option value="0"> User </option>
+                                                    <option value="1"> Admin </option>
                                                 </select>
                                             </div>
                                             <div class="modal-footer">

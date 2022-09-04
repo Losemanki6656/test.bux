@@ -55,9 +55,9 @@
                                 class="bi bi-person-circle"></i></div>
                         <select class="form-select mb-3 radius-30 ps-5" name="post_id">
                             <option selected value="">Выберите должность</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option value="1">Хисобчи</option>
+                            <option value="2">Бош хисобчи</option>
+                            <option value="3">Иктисодчи</option>
                         </select>
                     </div>
                 </div>

@@ -13,13 +13,13 @@
             </nav>
         </div>
         <div class="ms-auto">
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#finishtest"> <i
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#finishtest1"> <i
                     class="lni lni-plus"></i>Закончить тест
             </button>
         </div>
-        <div class="modal fade" id="finishtest" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="finishtest1" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <form action="{{ route('finishtask',['id' => $tasks[0]->mavzu_id])}}" method="post">
+                <form action="{{ route('finishtask',['id' => $tasks[0]->mavzu_id])}}" id="finishtest" method="post">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
@@ -118,7 +118,7 @@
 
             if (minutes == 0 && seconds == 0) {
                 document.getElementById('finishtest').submit();
-            }
+            } else  if({{ $times }} < 0)  document.getElementById('finishtest').submit();
 
         }
 

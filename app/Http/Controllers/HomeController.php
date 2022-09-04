@@ -779,6 +779,12 @@ class HomeController extends Controller
         $us->st_status = $request->st_status;
         $us->save();
 
+        if($request->roleSt == 1) {
+            
+            $role = Role::find(1);
+            $us->assignRole([$role->id]);
+        }
+
         return back()->with('msg', 1);
     }
 
@@ -797,6 +803,12 @@ class HomeController extends Controller
         $us->status = $request->st_status;
         $us->save();
 
+        return back()->with('msg', 1);
+    }
+
+    public function deleteMavzu($id)
+    {
+        $us = Mavzu::find($id)->delete();
         return back()->with('msg', 1);
     }
 }
