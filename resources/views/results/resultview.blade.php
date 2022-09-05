@@ -23,49 +23,68 @@
                     </form>
                 </div>
             </div>
+            @foreach ($tasks as $item)
                 <div class="alert border-0 bg-warning alert-dismissible fade show py-2">
                     <div class="d-flex align-items-center">
                         <div class="fs-3 text-dark"><i class="bi bi-exclamation-triangle-fill"></i>
                         </div>
                         <div class="ms-3">
                             <div class="text-dark fw-bold">
-                                 Вопрос - №
-                                <button type="button" id="tiles" class="btn btn-dark radius-30"></button>
+                                Вопрос - №{{ $loop->index + 1 }}
                             </div>
                         </div>
                     </div>
                     <button type="button" class="btn-close"></button>
                 </div>
-                <label class="text-primary">Вопрос</label>
-                {!! $result->task->ques !!}
+                {{ $tasks->withQueryString()->links() }}
 
-                <label class="text-primary">Решения</label>
-                {!! $result->task->result !!}
+                <label> Вопрос</label>
+                {!! $item->ques !!}
 
                 <div class="mb-3">
-                    <label>Ответ</label>
-                    <textarea name="result" class="form-control"> {{ $result->result }} </textarea>
-               </div>
-               <div class="mb-3">
-                    <form action="{{route('taskSucc',['id' => $result->id])}}" method="post">
+                    <label> Ответ</label> <br>
+                    {!! $item->result !!}
+                </div>
+            @endforeach
+
+            <div class="mb-3">
+                <label>Ответ</label>
+                @foreach ($result as $res)
+                    <h6>
+                        @if ($res->startMavzu->status_ret == true)
+                            <span class="text-danger">(Повтор)</span>
+                        @endif
+                        {{ $loop->index + 1 }}: {{ $res->result }}
+
+                    </h6>
+                @endforeach
+            </div>
+
+            @if (count($result))
+                <div class="mb-3">
+                    <form action="{{ route('taskSucc', ['id' => $result[0]->id]) }}" method="post">
                         @csrf
                         <div class="row">
                             <div class="col">
-                                <input type="number" name="ball" class="form-control" placeholder="Ball">
+                                <input type="number" name="ball" value="{{ $result[0]->ball }}" class="form-control" placeholder="Ball">
                             </div>
                             <div class="col">
-                                <button name="dan" value="true" class="btn btn-danger" type="submit" style="width: 100%"> Не правильно</button>
+                                <button name="dan" value="true" class="btn btn-danger" type="submit"
+                                    style="width: 100%">
+                                    Не правильно</button>
                             </div>
                             <div class="col">
-                                <button name="succ" value="true" class="btn btn-success" type="submit" style="width: 100%"> Правильно</button>
+                                <button name="succ" value="true" class="btn btn-success" type="submit"
+                                    style="width: 100%"> Правильно</button>
                             </div>
                         </div>
                     </form>
-               </div>
+                </div>
+            @endif
+
         </div>
     </div>
 @endsection
 
 @section('scripts')
 @endsection
-

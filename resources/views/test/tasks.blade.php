@@ -44,6 +44,9 @@
                                 <a type="button" href="{{ route('resultTaskVies',['id' => $item->id]) }}" class="btn btn-success radius-30"><i class="lni lni-check"></i>
                                         Решено
                                     </a>
+                                <a type="button" href="{{route('QuesView',['id' => $item->id])}}" class="btn btn-primary radius-30">
+                                        Повтор
+                                    </a>
                                @endif
                             </div>
                         </div>

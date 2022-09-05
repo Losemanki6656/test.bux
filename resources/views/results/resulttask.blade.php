@@ -50,9 +50,14 @@
                                     {{ $results->currentPage() * 10 - 10 + $loop->index + 1 }}</td>
                                 <td>{{ $item->user->name ?? '' }}</td>
                                 <td>{{ $item->mavzu->name ?? '' }}</td>
-                                <td>{{ $item->created_at }}</td>
+                                <td>{{ $item->created_at }}
+                                    @if ($item->status_ret == true)
+                                        <span class="text-danger fw-bold">(Повтор)</span>
+                                    @endif
+                                </td>
                                 <td class="align-middle text-center">
                                     <a href="{{ route('balltoresult',['id' => $item->id]) }}" type="button" class="btn btn-sm btn-primary"><i class="bx bx-edit-alt"></i></a>
+                                    <a href="{{ route('deleteResult',['id' => $item->id]) }}" type="button" class="btn btn-sm btn-danger"><i class="bx bx-trash-alt"></i></a>
                                 </td>
                             </tr>
                         @endforeach

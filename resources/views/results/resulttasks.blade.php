@@ -31,12 +31,11 @@
                         <div class="ms-3">
                             <div class="text-dark fw-bold">
                                 Вопрос - №{{ $loop->index + 1 }}
-                                <button type="button" id="tiles" class="btn btn-dark radius-30"></button>
                             </div>
                         </div>
                     </div>
                     <button type="button" class="btn-close"></button>
-                </div>
+                </div>  
                 {{ $tasks->withQueryString()->links() }}
 
                 <label> Вопрос</label>
@@ -49,9 +48,15 @@
             @endforeach
             <div class="mb-3">
                 <label>Ваш Ответ</label> <br>
-                @if (count($result))
-                    {{ $result[0]->result }}
-                @endif
+                @foreach ($result as $res)
+                    <h6>
+                        @if ($res->startMavzu->status_ret == true)
+                            <span class="text-danger">(Повтор)</span>
+                        @endif
+                        {{ $loop->index + 1 }}: {{ $res->result }}
+
+                    </h6>
+                @endforeach
             </div>
         </div>
     </div>

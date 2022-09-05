@@ -81,6 +81,7 @@ Route::post('/home/finishtask/{id}', [App\Http\Controllers\HomeController::class
 
 Route::get('/Questions/resultaskview', [App\Http\Controllers\HomeController::class, 'resultaskview'])->name('resultaskview');
 Route::get('/Questions/balltoresult/{id}', [App\Http\Controllers\HomeController::class, 'balltoresult'])->name('balltoresult');
+Route::get('/Questions/deleteResult/{id}', [App\Http\Controllers\HomeController::class, 'deleteResult'])->name('deleteResult');
 
 
 Route::post('/Questions/taskSucc/{id}', [App\Http\Controllers\HomeController::class, 'taskSucc'])->name('taskSucc');

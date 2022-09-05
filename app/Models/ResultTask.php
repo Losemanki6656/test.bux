@@ -23,4 +23,9 @@ class ResultTask extends Model
      {
           return $this->belongsTo(Task::class);
       }
+
+      public function startMavzu() 
+     {
+          return $this->belongsTo(StartMavzu::class,'start_mavzu_id');
+      }
 }

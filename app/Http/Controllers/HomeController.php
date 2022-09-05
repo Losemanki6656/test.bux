@@ -561,13 +561,13 @@ class HomeController extends Controller
         foreach ($tasks as $task)
         {
             $status[$task->id] = 0;
-            $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$task->id)->get();
-            //dd($x);
+            $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$task->id)->where('status_ret',false)->get();
+            
             if($x->count()) {
                 $status[$task->id] = 1;
                 if($x[0]->status == true) {
                     $status[$task->id] = 2;
-                    $ball[$task->id] = ResultTask::where('mavzu_id',$task->id)->where('user_id',Auth::user()->id)->sum('ball');
+                    $ball[$task->id] = ResultTask::where('mavzu_id',$task->id)->where('user_id',Auth::user()->id)->where('start_mavzu_id',$x[0]->id)->sum('ball');
                 }
             }
         }
@@ -613,10 +613,9 @@ class HomeController extends Controller
         $task = Mavzu::find($id);
 
         $status = 0;
-        $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->get();
+        $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->where('status',false)->get();
         if($x->count()) {
             $status = 1;
-            if($x[0]->status == true) $status = 2;
         } 
 
         return view('test.quesView',[
@@ -630,18 +629,24 @@ class HomeController extends Controller
         $tasks = Task::where('mavzu_id',$id)->paginate(1);
         $times = Mavzu::find($id)->time_count * 60;
 
-        $result = ResultTask::where('task_id',$tasks[0]->id)->where('user_id',Auth::user()->id)->get();
 
-        $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->get();
-        if($x->count()) {
-            $startMavzu = $x[0];
+        $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->where('status', true)->get();
+        $y = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->where('status', false)->get();
+        
+
+        if($y->count()) {
+            $startMavzu = $y[0];
         } else {
             $startMavzu = new StartMavzu();
             $startMavzu->user_id = Auth::user()->id;
             $startMavzu->mavzu_id = $id;
+            if($x->count() > 0) $startMavzu->status_ret = true;
             $startMavzu->save();
         }
-        //dd($x);
+
+        
+        $result = ResultTask::where('task_id',$tasks[0]->id)->where('user_id',Auth::user()->id)->where('start_mavzu_id', $startMavzu->id)->get();
+
         $ticketTime = strtotime($startMavzu->created_at);
         $difference = time() -  $ticketTime;
         $times = $times - $difference;
@@ -655,6 +660,7 @@ class HomeController extends Controller
 
     public function sendResult($id, Request $request)
     {
+       
         if($request->file1 != null){
             $fileName1 = time().'.'.$request->file1->extension();
             $path1 = $request->file1->storeAs('products', $fileName1);
@@ -663,9 +669,11 @@ class HomeController extends Controller
             $fileName2 = time().'.'.$request->file2->extension();
             $path2 = $request->file2->storeAs('products', $fileName2);
         }
+        
         $task = Task::find($id);
+        $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$task->mavzu_id)->where('status',false)->value('id');
 
-        $res = ResultTask::where('task_id',$id)->where('user_id',Auth::user()->id)->get();
+        $res = ResultTask::where('task_id',$id)->where('user_id',Auth::user()->id)->where('start_mavzu_id',$x)->get();
 
         if(count($res)) {
             $resID = ResultTask::where('task_id',$id)->where('user_id',Auth::user()->id)->value('id');
@@ -677,6 +685,7 @@ class HomeController extends Controller
         $product->user_id = Auth::user()->id;
         $product->mavzu_id = $task->mavzu_id;
         $product->task_id = $id;
+        $product->start_mavzu_id = $x;
         $product->result = $request->result;
 
         if($request->file1 != null){
@@ -694,7 +703,7 @@ class HomeController extends Controller
 
     public function finishtask($id)
     {
-        $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->value('id');
+        $x = StartMavzu::where('user_id',Auth::user()->id)->where('mavzu_id',$id)->where('status',false)->value('id');
 
         $res = StartMavzu::find($x);
         $res->status = true;
@@ -708,19 +717,30 @@ class HomeController extends Controller
 
     public function resultaskview()
     {
-        $results = ResultTask::where('status_task',false)->with(['user','mavzu'])->paginate(10);
+        $results = StartMavzu::where('status_res',false)->with(['user','mavzu'])->paginate(10);
 
         return view('results.resulttask',[
             'results' => $results
         ]);
     }
 
+    public function deleteResult($id)
+    {
+        $item = StartMavzu::find($id);
+        $item->status_res = true;
+        $item->save();
+
+        return redirect()->back()->with('msg' ,1);
+    }
     public function balltoresult($id)
     {
-        $result = ResultTask::with('task')->find($id);
+        $stmv = StartMavzu::find($id);
+        $tasks = Task::where('mavzu_id',$stmv->mavzu_id)->paginate(1);
+        $result = ResultTask::where('start_mavzu_id',$id)->where('task_id',$tasks[0]->id)->get();
 
         return view('results.resultview',[
-            'result' => $result
+            'result' => $result,
+            'tasks' => $tasks
         ]);
     }
 
@@ -740,7 +760,7 @@ class HomeController extends Controller
         }       
         $result->save();
 
-        return redirect()->route('resultaskview');
+        return redirect()->back();
         
     }
 
