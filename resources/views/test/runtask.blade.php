@@ -68,8 +68,16 @@
             <form action="{{ route('sendResult',['id' => $item->id ]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
-                    <label>Ответ</label>
-                    <textarea name="result" class="form-control"> @if (count($result)) {{ $result[0]->result }} @endif </textarea>
+                    <label class="fw-bold text-dark">Ответ</label>
+                    <textarea name="result" onpaste="return false;" class="form-control" required>@if(count($result)){{ $result[0]->result }}@endif</textarea>
+                    <br>
+                    @if ($result[0]->file1)
+                        <a class="fw-bold" href="{{ asset($result[0]->file1) }}"> Файл 1 </a>
+                    @endif
+                    <br>
+                    @if ($result[0]->file2)
+                        <a class="fw-bold" href="{{ asset($result[0]->file2) }}"> Файл 2 </a>
+                    @endif
                </div>
                <div class="mb-3">
                     <div class="row">
@@ -97,7 +105,7 @@
         var countdown = document.getElementById("tiles");
 
         getCountdown();
-
+        console.log( {{ $times }} );
         window.interval = setInterval(function() {
             getCountdown();
         }, 1000);
@@ -108,10 +116,11 @@
             var seconds_left = (target_date - current_date) / 1000;
 
             seconds_left = seconds_left % 86400;
+            //seconds_left = seconds_left % 3600;
 
-            seconds_left = seconds_left % 3600;
 
             minutes = pad(parseInt(seconds_left / 60));
+            
             seconds = pad(parseInt(seconds_left % 60));
 
             countdown.innerHTML = "Время - <span>" + minutes + " : </span><span>" + seconds + "</span>";

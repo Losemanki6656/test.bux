@@ -36,7 +36,7 @@
                 <div class="card">
                     <div class="card-body">
                         <label>Ответ</label>
-                        <textarea class="form-control ckeditor" name="result" aria-label="With textarea"></textarea>
+                        <textarea class="form-control ckeditor" name="result"></textarea>
                     </div>
                 </div>
                 <div class="card">
@@ -72,16 +72,20 @@
 
 @section('scripts')
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
-    <script type="text/javascript">
+    <script>
         $(document).ready(function() {
             $('.ckeditor').ckeditor();
-        });
+        })
     </script>
-    <script type="text/javascript">
+    <script>
         CKEDITOR.replace('ques', {
             filebrowserUploadUrl: "{{ route('ckeditor.image-upload', ['_token' => csrf_token()]) }}",
             filebrowserUploadMethod: 'form'
-        });
+        })
+        CKEDITOR.replace('result', {
+            filebrowserUploadUrl: "{{ route('ckeditor.image-upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadMethod: 'form'
+        })
     </script>
     <script>
         $(document).ready(function() {

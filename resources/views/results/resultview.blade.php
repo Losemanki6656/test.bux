@@ -38,17 +38,17 @@
                 </div>
                 {{ $tasks->withQueryString()->links() }}
 
-                <label> Вопрос</label>
+                <label class="fw-bold text-dark"> Вопрос</label>
                 {!! $item->ques !!}
 
                 <div class="mb-3">
-                    <label> Ответ</label> <br>
+                    <label class="fw-bold text-success"> Ответ</label> <br>
                     {!! $item->result !!}
                 </div>
             @endforeach
 
             <div class="mb-3">
-                <label>Ответ</label>
+                <label class="fw-bold text-primary">Ответ</label>
                 @foreach ($result as $res)
                     <h6>
                         @if ($res->startMavzu->status_ret == true)
@@ -56,6 +56,14 @@
                         @endif
                         {{ $loop->index + 1 }}: {{ $res->result }}
 
+                        <br style="margin-bottom: 5px">
+                        @if ($res->file1)
+                            <a href="{{ asset($res->file1) }}"> Файл 1 </a>
+                        @endif
+                        <br style="margin-bottom: 5px">
+                        @if ($res->file2)
+                            <a href="{{ asset($res->file2) }}"> Файл 2 </a>
+                        @endif
                     </h6>
                 @endforeach
             </div>

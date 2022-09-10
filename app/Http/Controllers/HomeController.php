@@ -367,7 +367,7 @@ class HomeController extends Controller
 
             $difference = time() -  $ticketTime;
             $times = $count->test_time * 60 - $difference;
-
+    
             $uid = $xz[0]->id;
 
         } else {
@@ -379,7 +379,6 @@ class HomeController extends Controller
             ->get();
             $arrques = $questions->pluck('id')->toArray();
             $times = $count->test_time * 60;
-
             $addRes = new ResultTest();
             $addRes->user_id = Auth::user()->id; 
             $addRes->lang_id = $request->lang_id;
@@ -660,13 +659,12 @@ class HomeController extends Controller
 
     public function sendResult($id, Request $request)
     {
-       
         if($request->file1 != null){
-            $fileName1 = time().'.'.$request->file1->extension();
+            $fileName1 = time()."1".'.'.$request->file1->getClientOriginalExtension();
             $path1 = $request->file1->storeAs('products', $fileName1);
         }
         if($request->file2 != null){
-            $fileName2 = time().'.'.$request->file2->extension();
+            $fileName2 = time()."2".'.'.$request->file2->getClientOriginalExtension();
             $path2 = $request->file2->storeAs('products', $fileName2);
         }
         
@@ -689,10 +687,10 @@ class HomeController extends Controller
         $product->result = $request->result;
 
         if($request->file1 != null){
-            $product->file1 =  'storage/files/' . $fileName1;
+            $product->file1 =  'storage/products/' . $fileName1;
         } else  $product->file1 = '';
         if($request->file2 != null){
-            $product->file2 =  'storage/files/' . $fileName2;
+            $product->file2 =  'storage/products/' . $fileName2;
         } else  $product->file2 = '';
 
         $product->save();
