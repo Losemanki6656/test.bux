@@ -470,14 +470,12 @@ class HomeController extends Controller
             $request->file('upload')->storeAs('images', $fileName);
 
             $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            $url = asset('storage/images/'.$fileName); 
+            $url = asset('storage/'.$fileName); 
             $msg = 'Image successfully uploaded'; 
             $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
                
             @header('Content-type: text/html; charset=utf-8'); 
             echo $response;
-
-            //$path1 = $request->file1->storeAs('products', $fileName1);
         }
     }
 
@@ -687,10 +685,10 @@ class HomeController extends Controller
         $product->result = $request->result;
 
         if($request->file1 != null){
-            $product->file1 =  'storage/images/' . $fileName1;
+            $product->file1 =  'storage/' . $fileName1;
         } else  $product->file1 = '';
         if($request->file2 != null){
-            $product->file2 =  'storage/images/' . $fileName2;
+            $product->file2 =  'storage/' . $fileName2;
         } else  $product->file2 = '';
 
         $product->save();
