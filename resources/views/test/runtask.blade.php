@@ -71,12 +71,14 @@
                     <label class="fw-bold text-dark">Ответ</label>
                     <textarea name="result" onpaste="return false;" class="form-control" required>@if(count($result)){{ $result[0]->result }}@endif</textarea>
                     <br>
-                    @if ($result[0]->file1)
-                        <a class="fw-bold" href="{{ asset($result[0]->file1) }}"> Файл 1 </a>
-                    @endif
-                    <br>
-                    @if ($result[0]->file2)
-                        <a class="fw-bold" href="{{ asset($result[0]->file2) }}"> Файл 2 </a>
+                    @if (count($result))
+                        @if ($result[0]->file1)
+                            <a class="fw-bold" href="{{ asset($result[0]->file1) }}"> Файл 1 </a>
+                        @endif
+                        <br>
+                        @if ($result[0]->file2)
+                            <a class="fw-bold" href="{{ asset($result[0]->file2) }}"> Файл 2 </a>
+                        @endif
                     @endif
                </div>
                <div class="mb-3">

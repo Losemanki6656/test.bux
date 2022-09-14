@@ -53,7 +53,8 @@
                         @if ($res->startMavzu->status_ret == true)
                             <span class="text-danger">(Повтор)</span>
                         @endif
-                        {{ $loop->index + 1 }}: {{ $res->result }}
+                        {{ $loop->index + 1 }}: 
+                        <textarea class="form-control" rows="7" readonly="true">{{ $res->result }}</textarea>
                         <br style="margin-bottom: 5px">
                         @if ($res->file1)
                             <a href="{{ asset($res->file1) }}"> Файл 1 </a>
